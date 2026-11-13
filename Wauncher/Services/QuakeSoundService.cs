@@ -12,11 +12,19 @@ namespace Wauncher.Services
 
         public static string GetQuakeDirectory()
         {
-            // 1. Current working directory
+            // 1. Detected or configured Game directory
+            var gameDir = GamePathService.GetGameDirectory();
+            if (!string.IsNullOrWhiteSpace(gameDir))
+            {
+                var d0 = Path.Combine(gameDir, "csgo", "sound", "quake");
+                if (Directory.Exists(d0)) return d0;
+            }
+
+            // 2. Current working directory
             var d1 = Path.Combine(Directory.GetCurrentDirectory(), "csgo", "sound", "quake");
             if (Directory.Exists(d1)) return d1;
 
-            // 2. Directory of running executable
+            // 3. Directory of running executable
             var exeDir = Path.GetDirectoryName(Environment.ProcessPath);
             if (!string.IsNullOrWhiteSpace(exeDir))
             {
@@ -24,14 +32,11 @@ namespace Wauncher.Services
                 if (Directory.Exists(d2)) return d2;
             }
 
-            // 3. Known classiccounter game directory
-            var d3 = @"C:\Users\d0rman\Desktop\Desktop\classiccounter\csgo\sound\quake";
-            if (Directory.Exists(d3)) return d3;
-
             try
             {
-                Directory.CreateDirectory(d1);
-                return d1;
+                var d = Path.Combine(gameDir, "csgo", "sound", "quake");
+                Directory.CreateDirectory(d);
+                return d;
             }
             catch
             {

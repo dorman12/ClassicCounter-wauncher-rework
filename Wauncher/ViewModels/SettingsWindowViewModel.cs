@@ -39,6 +39,14 @@ namespace Wauncher.ViewModels
         public static event Action<string?>? MusicFolderChanged;
 
         [ObservableProperty]
+        private string _gameDirectory = string.Empty;
+
+        public string GameDirectoryDisplay =>
+            !string.IsNullOrWhiteSpace(GameDirectory) && Directory.Exists(GameDirectory)
+                ? GameDirectory
+                : Services.GamePathService.GetGameDirectory();
+
+        [ObservableProperty]
         private string _musicFolder = string.Empty;
 
         public string MusicFolderDisplay =>
@@ -93,6 +101,7 @@ namespace Wauncher.ViewModels
         partial void OnDiscordRpcChanged(bool value)       { if (_isLoading) return; Save(); DiscordRpcChanged?.Invoke(value); }
         partial void OnCustomCarouselFolderChanged(string value) { if (_isLoading) return; Save(); CustomCarouselFolderChanged?.Invoke(string.IsNullOrWhiteSpace(value) ? null : value); }
         partial void OnMusicFolderChanged(string value) { if (_isLoading) return; Save(); OnPropertyChanged(nameof(MusicFolderDisplay)); MusicFolderChanged?.Invoke(string.IsNullOrWhiteSpace(value) ? null : value); }
+        partial void OnGameDirectoryChanged(string value) { if (_isLoading) return; Save(); OnPropertyChanged(nameof(GameDirectoryDisplay)); }
         partial void OnMusicVolumeChanged(double value) { if (_isLoading) return; Save(); }
         partial void OnNoscopeSoundNameChanged(string value) { if (_isLoading) return; Save(); }
 
@@ -121,6 +130,7 @@ namespace Wauncher.ViewModels
                         case "EnableGc":       EnableGc       = value.Trim() == "true"; break;
                         case "LaunchOptions":  LaunchOptions  = value; break;
                         case "CustomCarouselFolder": CustomCarouselFolder = value; break;
+                        case "GameDirectory": GameDirectory = value; break;
                         case "MusicFolder": MusicFolder = value; break;
                         case "NoscopeSoundName": NoscopeSoundName = value; break;
                         case "Language":
@@ -153,6 +163,7 @@ namespace Wauncher.ViewModels
                     l.StartsWith("DisableHardwareAcceleration=") ||
                     l.StartsWith("EnableGc=") ||
                     l.StartsWith("CustomCarouselFolder=") ||
+                    l.StartsWith("GameDirectory=") ||
                     l.StartsWith("MusicFolder=") ||
                     l.StartsWith("MusicVolume=") ||
                     l.StartsWith("NoscopeSoundName=") ||
@@ -166,6 +177,7 @@ namespace Wauncher.ViewModels
                 lines.Add($"EnableGc={EnableGc.ToString().ToLower()}");
                 lines.Add($"LaunchOptions={LaunchOptions}");
                 lines.Add($"CustomCarouselFolder={CustomCarouselFolder}");
+                lines.Add($"GameDirectory={GameDirectory}");
                 lines.Add($"MusicFolder={MusicFolder}");
                 lines.Add($"MusicVolume={MusicVolume.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
                 lines.Add($"NoscopeSoundName={NoscopeSoundName}");

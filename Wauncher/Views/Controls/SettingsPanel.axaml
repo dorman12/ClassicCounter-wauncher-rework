@@ -163,6 +163,21 @@
 
             <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
 
+            <!-- Game Folder Selection & Setup -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_GameDirTitle}" />
+                    <TextBlock x:Name="GameDirectoryStatusText" FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{Binding GameDirectoryDisplay}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" MaxWidth="340" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button x:Name="ChooseGameFolderButton" Classes="compactActionBtn" Click="ChooseGameFolderButton_Click" Content="{DynamicResource Loc_ChooseFolder}" MinWidth="95" />
+                    <Button x:Name="AutoDetectGameFolderButton" Classes="compactActionBtn" Click="AutoDetectGameFolderButton_Click" Content="{DynamicResource Loc_AutoDetect}" MinWidth="85" />
+                    <Button x:Name="InstallToGameFolderButton" Classes="compactActionBtn" Click="InstallToGameFolderButton_Click" Content="{DynamicResource Loc_InstallToGame}" MinWidth="110" Background="#2E7D32" />
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
             <!-- Background Music Folder Selection -->
             <Grid ColumnDefinitions="*,Auto" MinHeight="44">
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">

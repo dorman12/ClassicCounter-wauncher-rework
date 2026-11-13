@@ -121,6 +121,12 @@ namespace Wauncher.Views
 
             Closing += (_, e) =>
             {
+                try
+                {
+                    Wauncher.Services.MusicPlayerService.Instance.Stop();
+                }
+                catch { }
+
                 if (_forceClose)
                 {
                     Dispatcher.UIThread.Post(() => Environment.Exit(0));
@@ -295,6 +301,12 @@ namespace Wauncher.Views
                 _gameWasLaunched = true;
                 Dispatcher.UIThread.Post(() =>
                 {
+                    try
+                    {
+                        Wauncher.Services.MusicPlayerService.Instance.Pause();
+                    }
+                    catch { }
+
                     if (IsVisible)
                         Hide();
                 });

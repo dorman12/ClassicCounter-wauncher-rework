@@ -215,7 +215,7 @@ namespace Wauncher.Views.Controls
         {
             try
             {
-                var dir = Directory.GetCurrentDirectory();
+                var dir = Wauncher.Services.GamePathService.GetGameDirectory();
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = dir,

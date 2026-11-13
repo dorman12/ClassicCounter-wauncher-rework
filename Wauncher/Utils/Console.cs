@@ -16,6 +16,7 @@ namespace Wauncher.Utils
         private const int SW_HIDE = 0;
         private const int SW_SHOW = 5;
         private const uint MB_ICONERROR = 0x00000010;
+        private const uint MB_ICONINFORMATION = 0x00000040;
         private const uint MB_SYSTEMMODAL = 0x00001000; // Always on top of all windows
 
         private static IntPtr ConsoleHandle = GetConsoleWindow();
@@ -27,6 +28,12 @@ namespace Wauncher.Utils
         {
             if (OperatingSystem.IsWindows())
                 MessageBox(IntPtr.Zero, message, "ClassicCounter Error", MB_ICONERROR | MB_SYSTEMMODAL);
+        }
+
+        public static void ShowInfo(string message, string title = "ClassicCounter")
+        {
+            if (OperatingSystem.IsWindows())
+                MessageBox(IntPtr.Zero, message, title, MB_ICONINFORMATION | MB_SYSTEMMODAL);
         }
     }
 }

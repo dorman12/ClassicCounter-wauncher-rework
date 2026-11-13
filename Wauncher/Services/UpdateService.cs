@@ -11,7 +11,7 @@ namespace Wauncher.Services
     public partial class UpdateService : ObservableObject, IUpdateService
     {
         private static string WauncherDirectory =>
-            Path.GetDirectoryName(Utils.Services.GetExePath()) ?? Directory.GetCurrentDirectory();
+            GamePathService.GetGameDirectory();
 
         [ObservableProperty]
         private bool _isUpdateAvailable;
@@ -69,8 +69,21 @@ namespace Wauncher.Services
             string csgoExe = Path.Combine(WauncherDirectory, "csgo.exe");
             if (!File.Exists(csgoExe))
             {
+                if (GamePathService.TryAutoDetect(out var autoDetected))
+                {
+                    GamePathService.SetGameDirectory(autoDetected, out _);
+                    csgoExe = Path.Combine(WauncherDirectory, "csgo.exe");
+                }
+            }
+
+            if (!File.Exists(csgoExe))
+            {
                 IsNeedingInstall = true;
                 return true;
+            }
+            else
+            {
+                IsNeedingInstall = false;
             }
 
             if (ViewModels.SettingsWindowViewModel.LoadGlobal().SkipUpdates)

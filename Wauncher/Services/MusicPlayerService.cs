@@ -284,18 +284,42 @@ namespace Wauncher.Services
         public void Pause()
         {
             _fadeCts?.Cancel();
-            _player.Pause();
-            _isPlaying = false;
-            PlaybackStateChanged?.Invoke(false);
+            void DoPause()
+            {
+                try
+                {
+                    _player.Pause();
+                    _isPlaying = false;
+                    PlaybackStateChanged?.Invoke(false);
+                }
+                catch { }
+            }
+
+            if (Dispatcher.UIThread.CheckAccess())
+                DoPause();
+            else
+                Dispatcher.UIThread.Post(DoPause);
         }
 
         public void Stop()
         {
             _fadeCts?.Cancel();
-            _player.Stop();
-            _player.Close();
-            _isPlaying = false;
-            PlaybackStateChanged?.Invoke(false);
+            void DoStop()
+            {
+                try
+                {
+                    _player.Stop();
+                    _player.Close();
+                    _isPlaying = false;
+                    PlaybackStateChanged?.Invoke(false);
+                }
+                catch { }
+            }
+
+            if (Dispatcher.UIThread.CheckAccess())
+                DoStop();
+            else
+                Dispatcher.UIThread.Post(DoStop);
         }
 
         public void PlayNext()

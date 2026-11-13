@@ -47,7 +47,7 @@ namespace Wauncher.Utils
             if (arguments.Count > 0) Terminal.Print($"Arguments: {string.Join(" ", arguments)}");
 
             var settings = ViewModels.SettingsWindowViewModel.LoadGlobal();
-            string directory = Path.GetDirectoryName(Services.GetExePath()) ?? Directory.GetCurrentDirectory();
+            string directory = Wauncher.Services.GamePathService.GetGameDirectory();
             Terminal.Print($"Directory: {directory}");
 
             string gameStatePath = Path.Combine(directory, "csgo", "cfg", "gamestate_integration_cc.cfg");

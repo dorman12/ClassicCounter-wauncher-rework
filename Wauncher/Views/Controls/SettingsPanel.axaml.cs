@@ -29,6 +29,7 @@ namespace Wauncher.Views.Controls
             ClosePanelButton.Click += (_, _) => CloseRequested?.Invoke(this, EventArgs.Empty);
 
             UpdateLanguageButtons();
+            UpdateGameDirectoryStatus();
             UpdateNoscopeStatus();
         }
 
@@ -92,6 +93,7 @@ namespace Wauncher.Views.Controls
         {
             _allowHardwareAccelerationRestart = true;
             UpdateLanguageButtons();
+            UpdateGameDirectoryStatus();
             UpdateNoscopeStatus();
             await RefreshSteamButtonStateAsync();
         }
@@ -212,6 +214,94 @@ namespace Wauncher.Views.Controls
                 win.Width = 1280;
                 win.Height = 720;
             }
+        }
+
+        private async void ChooseGameFolderButton_Click(object? sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var topLevel = TopLevel.GetTopLevel(this);
+                if (topLevel == null) return;
+
+                var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions
+                {
+                    Title = "Выберите папку с игрой ClassicCounter (где csgo.exe)",
+                    AllowMultiple = false
+                });
+
+                if (folders != null && folders.Count > 0)
+                {
+                    var selectedPath = folders[0].Path.LocalPath;
+                    if (Wauncher.Services.GamePathService.SetGameDirectory(selectedPath, out var err))
+                    {
+                        if (DataContext is SettingsWindowViewModel vm)
+                        {
+                            vm.GameDirectory = selectedPath;
+                        }
+                        UpdateGameDirectoryStatus();
+                        if (VisualRoot is MainWindow win && win.DataContext is MainWindowViewModel mainVm)
+                        {
+                            _ = mainVm.UpdateService.CheckForUpdatesAsync();
+                        }
+                    }
+                    else
+                    {
+                        ConsoleManager.ShowError(err);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleManager.ShowError($"Ошибка: {ex.Message}");
+            }
+        }
+
+        private void AutoDetectGameFolderButton_Click(object? sender, RoutedEventArgs e)
+        {
+            if (Wauncher.Services.GamePathService.TryAutoDetect(out var detectedPath))
+            {
+                Wauncher.Services.GamePathService.SetGameDirectory(detectedPath, out _);
+                if (DataContext is SettingsWindowViewModel vm)
+                {
+                    vm.GameDirectory = detectedPath;
+                }
+                UpdateGameDirectoryStatus();
+                if (VisualRoot is MainWindow win && win.DataContext is MainWindowViewModel mainVm)
+                {
+                    _ = mainVm.UpdateService.CheckForUpdatesAsync();
+                }
+                ConsoleManager.ShowInfo($"Папка с игрой успешно найдена:\n{detectedPath}");
+            }
+            else
+            {
+                ConsoleManager.ShowError("Не удалось автоматически найти папку с игрой ClassicCounter.\nПожалуйста, укажите папку вручную через кнопку «Выбрать папку».");
+            }
+        }
+
+        private void InstallToGameFolderButton_Click(object? sender, RoutedEventArgs e)
+        {
+            if (Wauncher.Services.GamePathService.InstallToGameFolder(out var msg))
+            {
+                ConsoleManager.ShowInfo(msg);
+            }
+            else
+            {
+                ConsoleManager.ShowError(msg);
+            }
+        }
+
+        private void UpdateGameDirectoryStatus()
+        {
+            try
+            {
+                var currentDir = Wauncher.Services.GamePathService.GetGameDirectory();
+                bool hasGame = Wauncher.Services.GamePathService.HasGame(currentDir);
+                if (this.FindControl<TextBlock>("GameDirectoryStatusText") is TextBlock statusText)
+                {
+                    statusText.Text = hasGame ? currentDir : $"{currentDir} (csgo.exe не найден)";
+                }
+            }
+            catch { }
         }
 
         private async void ChooseMusicFolderButton_Click(object? sender, RoutedEventArgs e)

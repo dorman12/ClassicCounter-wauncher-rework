@@ -12,7 +12,7 @@ namespace Wauncher.Utils
     public static class DownloadManager
     {
         private static string WauncherDirectory =>
-            Path.GetDirectoryName(Services.GetExePath()) ?? Directory.GetCurrentDirectory();
+            Wauncher.Services.GamePathService.GetGameDirectory();
 
         private static readonly DownloadConfiguration _settings = new()
         {

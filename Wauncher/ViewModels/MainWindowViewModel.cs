@@ -217,7 +217,19 @@ namespace Wauncher.ViewModels
 
             if (_updateService.IsNeedingInstall)
             {
-                await InstallGameAsync();
+                if (Services.GamePathService.TryAutoDetect(out var autoDetected))
+                {
+                    Services.GamePathService.SetGameDirectory(autoDetected, out _);
+                    await _updateService.CheckForUpdatesAsync();
+                    if (!_updateService.IsNeedingInstall)
+                    {
+                        OnPropertyChanged(nameof(LaunchButtonText));
+                        return;
+                    }
+                }
+
+                // If game not found on PC, open settings to let user locate folder or confirm install
+                IsSettingsPanelOpen = true;
                 return;
             }
 
@@ -236,6 +248,9 @@ namespace Wauncher.ViewModels
 
             try
             {
+                // Stop background music as game is launching
+                Wauncher.Services.MusicPlayerService.Instance.Pause();
+
                 var settings = SettingsWindowViewModel.LoadGlobal();
                 var selected = SelectedServer;
 
