@@ -1,0 +1,235 @@
+﻿<UserControl
+    x:Class="Wauncher.Views.Controls.AppearancePanel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Wauncher.ViewModels"
+    mc:Ignorable="d"
+    d:DesignWidth="760"
+    d:DesignHeight="480"
+    x:DataType="vm:AppearanceWindowViewModel"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch">
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.sectionTitle">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="LetterSpacing" Value="1.5" />
+            <Setter Property="Foreground" Value="{DynamicResource AppMutedText}" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+
+        <Style Selector="Border.cardBox">
+            <Setter Property="Background" Value="#12FFFFFF" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppDivider}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="14,12" />
+        </Style>
+
+        <Style Selector="Button.presetBtn">
+            <Setter Property="Padding" Value="12,7" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppDivider}" />
+            <Setter Property="Background" Value="#18FFFFFF" />
+            <Setter Property="Foreground" Value="{DynamicResource AppPrimaryText}" />
+            <Setter Property="FontSize" Value="11.5" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.presetBtn:pointerover">
+            <Setter Property="Background" Value="#30FFFFFF" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppAccentGreen}" />
+        </Style>
+
+        <Style Selector="Button.colorChip">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="#44FFFFFF" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.colorChip:pointerover">
+            <Setter Property="BorderBrush" Value="White" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{DynamicResource AppMainBackground}" MinHeight="440">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="52" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="14"
+                FontWeight="Bold"
+                LetterSpacing="1"
+                Foreground="{DynamicResource AppPrimaryText}"
+                Text="{DynamicResource Loc_ThemeCustomizerTitle}" />
+            <Button
+                x:Name="ClosePanelButton"
+                HorizontalAlignment="Right"
+                Classes="titleBtn"
+                Width="44"
+                Height="44"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+                <Path Width="10" Height="10"
+                      Data="M0,0 L10,10 M10,0 L0,10"
+                      Stroke="White" StrokeThickness="1.5" />
+            </Button>
+        </Grid>
+
+        <Rectangle Grid.Row="1" Fill="{DynamicResource AppDivider}" />
+
+        <!-- Main Body -->
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="28,14,28,14" Spacing="14">
+
+                <!-- 1. Saved Profiles & Themes List with Quick Selection -->
+                <StackPanel Spacing="6">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Grid.Column="0" Classes="sectionTitle" Text="{DynamicResource Loc_SavedProfilesTitle}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Text="{DynamicResource Loc_ClickToActivate}" FontSize="10" Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+                    </Grid>
+                    
+                    <WrapPanel x:Name="ProfilesContainer" Orientation="Horizontal" />
+                </StackPanel>
+
+                <!-- 2. Save Current Config as New Profile -->
+                <Border Classes="cardBox" Padding="12,10">
+                    <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+                        <TextBlock Grid.Column="0" Text="{DynamicResource Loc_SaveCurrentProfile}" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                        <TextBox Grid.Column="1" x:Name="ProfileNameInput" Watermark="{DynamicResource Loc_ProfileNameWatermark}" FontSize="12" Height="34" Margin="0,0,10,0" VerticalAlignment="Center" />
+                        <Button Grid.Column="2" Classes="presetBtn" Height="34" Padding="16,0" Background="{DynamicResource AppAccentGreen}" Foreground="Black" FontWeight="Bold" Click="SaveProfile_Click" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock Text="{DynamicResource Loc_SaveProfileBtn}" FontSize="12" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <!-- 3. Accent Color (Custom Palette + Visual Color Picker + Hex Code) -->
+                <StackPanel Spacing="6">
+                    <TextBlock Classes="sectionTitle" Text="{DynamicResource Loc_AccentColorTitle}" />
+                    <Border Classes="cardBox">
+                        <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                            <!-- Preset Color Circles -->
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <Button Classes="colorChip" Background="#00C8FF" Click="AccentColor_Click" Tag="#00C8FF" ToolTip.Tip="Cyan Glow" />
+                                <Button Classes="colorChip" Background="#4CAF50" Click="AccentColor_Click" Tag="#4CAF50" ToolTip.Tip="Classic Green" />
+                                <Button Classes="colorChip" Background="#FF9800" Click="AccentColor_Click" Tag="#FF9800" ToolTip.Tip="CS Gold" />
+                                <Button Classes="colorChip" Background="#F44336" Click="AccentColor_Click" Tag="#F44336" ToolTip.Tip="Crimson Red" />
+                                <Button Classes="colorChip" Background="#9B59B6" Click="AccentColor_Click" Tag="#9B59B6" ToolTip.Tip="Neon Purple" />
+                                <Button Classes="colorChip" Background="#2196F3" Click="AccentColor_Click" Tag="#2196F3" ToolTip.Tip="Electric Blue" />
+                                <Button Classes="colorChip" Background="#FF007F" Click="AccentColor_Click" Tag="#FF007F" ToolTip.Tip="Hot Pink" />
+                                <Button Classes="colorChip" Background="#00FFCC" Click="AccentColor_Click" Tag="#00FFCC" ToolTip.Tip="Mint Aqua" />
+                            </StackPanel>
+
+                            <!-- Visual Color Picker + Custom Hex Input -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <TextBlock Text="{DynamicResource Loc_VisualColor}" FontSize="11" Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+                                <ColorPicker x:Name="AccentColorPicker"
+                                             ColorChanged="AccentColorPicker_ColorChanged"
+                                             IsAlphaEnabled="False"
+                                             Height="30"
+                                             VerticalAlignment="Center"
+                                             ToolTip.Tip="{DynamicResource Loc_VisualColorTooltip}" />
+                                <TextBox x:Name="CustomAccentHexInput" Width="76" Height="30" FontSize="11" Text="#00C8FF" VerticalAlignment="Center" />
+                                <Button Classes="presetBtn" Height="30" Padding="10,0" Content="{DynamicResource Loc_Apply}" Click="ApplyCustomAccent_Click" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!-- 4. Background Color Customization -->
+                <StackPanel Spacing="6">
+                    <TextBlock Classes="sectionTitle" Text="{DynamicResource Loc_BgColorTitle}" />
+                    <Border Classes="cardBox">
+                        <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <Button Classes="colorChip" Background="#060A12" Click="BgColor_Click" Tag="#060A12" ToolTip.Tip="Deep Dark Navy" />
+                                <Button Classes="colorChip" Background="#0D1117" Click="BgColor_Click" Tag="#0D1117" ToolTip.Tip="Obsidian Dark" />
+                                <Button Classes="colorChip" Background="#181818" Click="BgColor_Click" Tag="#181818" ToolTip.Tip="Graphite Carbon" />
+                                <Button Classes="colorChip" Background="#101C14" Click="BgColor_Click" Tag="#101C14" ToolTip.Tip="Tactical Military" />
+                                <Button Classes="colorChip" Background="#180A22" Click="BgColor_Click" Tag="#180A22" ToolTip.Tip="Cyber Violet" />
+                                <Button Classes="colorChip" Background="#081426" Click="BgColor_Click" Tag="#081426" ToolTip.Tip="Midnight Blue" />
+                            </StackPanel>
+
+                            <!-- Visual Color Picker + Custom Hex Input -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <TextBlock Text="{DynamicResource Loc_VisualColor}" FontSize="11" Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+                                <ColorPicker x:Name="BgColorPicker"
+                                             ColorChanged="BgColorPicker_ColorChanged"
+                                             IsAlphaEnabled="False"
+                                             Height="30"
+                                             VerticalAlignment="Center"
+                                             ToolTip.Tip="{DynamicResource Loc_VisualBgTooltip}" />
+                                <TextBox x:Name="CustomBgHexInput" Width="76" Height="30" FontSize="11" Text="#060A12" VerticalAlignment="Center" />
+                                <Button Classes="presetBtn" Height="30" Padding="10,0" Content="{DynamicResource Loc_Apply}" Click="ApplyCustomBg_Click" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!-- 5. Glass Transparency & Glow Intensity Sliders -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
+                    <!-- Glass Opacity -->
+                    <Border Grid.Column="0" Classes="cardBox">
+                        <StackPanel Spacing="8">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="{DynamicResource Loc_GlassOpacityTitle}" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" />
+                                <TextBlock Grid.Column="1" x:Name="OpacityValueText" Text="75%" FontSize="11" Foreground="{DynamicResource AppMutedText}" />
+                            </Grid>
+                            <Slider x:Name="GlassOpacitySlider" Minimum="0.20" Maximum="0.98" Value="0.75" ValueChanged="GlassOpacitySlider_ValueChanged" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Glow Intensity -->
+                    <Border Grid.Column="1" Classes="cardBox">
+                        <StackPanel Spacing="6">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="{DynamicResource Loc_GlowIntensityTitle}" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" />
+                                <TextBlock Grid.Column="1" x:Name="GlowValueText" Text="80%" FontSize="11" Foreground="{DynamicResource AppMutedText}" />
+                            </Grid>
+                            <Slider x:Name="GlowIntensitySlider" Minimum="0.0" Maximum="1.0" Value="0.80" ValueChanged="GlowIntensitySlider_ValueChanged" />
+                            
+                            <!-- Live Glow Preview Swatch -->
+                            <Border x:Name="GlowPreviewBox" Height="24" CornerRadius="6" Background="{DynamicResource AppAccentGreen}" HorizontalAlignment="Stretch" Margin="0,2,0,0">
+                                <TextBlock Text="{DynamicResource Loc_GlowPreview}" FontSize="10" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Rectangle Grid.Row="3" Fill="{DynamicResource AppDivider}" />
+
+        <!-- Bottom Actions -->
+        <Grid Grid.Row="4" Margin="24,0" ColumnDefinitions="Auto,*">
+            <TextBlock Grid.Column="0" Text="{DynamicResource Loc_AllChangesSaved}" FontSize="11" FontStyle="Italic" Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+            <Button
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Classes="presetBtn"
+                Padding="16,8"
+                Click="ResetToDefault_Click"
+                Content="{DynamicResource Loc_ResetDefaultTheme}" />
+        </Grid>
+    </Grid>
+</UserControl>

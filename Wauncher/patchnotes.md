@@ -1,0 +1,175 @@
+# Hotfix
+08/20/2026
+## What's Changed
+- Fixed case opening sometimes throwing "unable to retrieve your item" mid-animation
+- Fixed items occasionally not appearing in your inventory after a match ends and you load into the next map
+- Fixed a rare case where opening a crate could fail to produce any item at all
+
+# Major Update - Game Coordinator Release (Again) ((Again))
+08/20/2026
+## What's Changed
+- Added missing flash files for Spectral Shiv
+- Added missing world model for Spectral Shiv
+- Fixed NOVAGANG Imp Paper Sticker model not appearing when applied to a weapon
+- RU PUG servers are back online again
+- Fixed all known issues with game coordinator (too many to list here)
+- Moved game coordinator hosting to EU server
+- Launcher version 3.2.7 release
+- Migrated to new profiles API
+- Added "Clear Download Cache" button in settings (fixes stuck 7z errors)
+- Fixed launcher not detecting missing game files when Skip Updates was enabled
+- Various bug fixes
+
+# Major Update - Game Coordinator Beta
+06/27/2026
+## What's Changed
+- Added **RU | ClassicCounter | PUG | 128 Tick** server (host located in Moscow)
+- Added **Game Coordinator** support
+- Added Spectral Knives (currently unobtainable to the public, may be used for planned future events)
+- Added ClassicCounter logo to in-game pause menu
+- Added ability to view eddies.cc profiles via clicking players on the in-game scoreboard
+- Removed Herobrine
+- Fixed an issue with Weapon Cases not opening correctly
+- Fixed an issue with Sticker Capsules not opening correctly
+- Fixed an issue with Music Kit Boxes not opening correctly
+- Fixed an issue with scraping stickers
+- Fixed Trade Up Contracts not functioning
+- Fixed certain items failing to appear in Trade Up Contracts
+- Fixed all NOVAGANG Collection items' inspect models
+- Fixed all NOVAGANG Music Kit main menu music not playing in main menu
+- Fixed an issue where some weapon models wouldn't render properly in the inventory
+- Fixed main menu News tab failing to display ClassicCounter server list
+- Fixed missing assets from main menu carousel
+- Added new items to main menu carousel
+- Added launcher settings toggle for **Enable In-Game Inventory** (launches cc.exe with game coordinator)
+- Added error message in the case launcher fails to connect to update server
+- Fixed an issue with launcher failing to verify game files
+- Fixed launcher sometimes staying open as a background process after being closed
+- Fixed launcher not showing an "Update" button when detecting a new patch
+- Removed launcher system tray icon behavior
+- Updated appearance of installation and update progress bars in launcher
+
+# Launcher Update 3.2.1
+06/19/2026
+## What's Changed
+- Added "Enable GC (Beta)" in Settings to launch through the game coordinator (cc.exe)
+
+# Launcher Update 3.2.0
+06/02/2026
+## What's Changed
+- Added an Appearance menu to customize the launcher's colors (Background, Accent, and Text)
+- Settings and Info are no longer separate windows; they now open as panels inside the launcher
+- Redesigned the server selector with a cleaner layout
+- Fixed the launcher getting stuck on "Checking for updates…" when the update server is unreachable
+- Fixed auto-updating, so future versions will install automatically (3.2.0 is the last manual download)
+
+# Minor Update - Bug Fixes
+05/17/2026
+## What's Changed
+- Fixed collection drops not functioning as intended
+- Fixed an issue with drop rarity
+- Fixed drop amounts for donors and non-donors
+- Fed the Horse twice
+
+# Update - Map and Drop Pool Changes
+04/02/2026
+## What's Changed
+- End of ClassicCounter anniversary event
+- Disabled sv_party_mode on all servers
+- Reverted drops back to normal amounts
+- Updated map pool for Spring season
+- Updated drop pool
+- Removed souvenir drops (event/holiday exclusive)
+- Fed the Horse
+- Some servers still need to be restarted for map and drop pool changes to apply.
+- Servers will be restarted during inactive hours.
+
+# Launcher Update 3.1.0
+03/22/2026
+## What's Changed
+- Improved full game downloading and extraction reliability
+- You no longer need an older build installed first for downloads to work reliably
+- Fixed the launcher sometimes staying open in the background after closing the game
+- Improved memory usage
+- Improved Steam detection
+- Added the ability to add ClassicCounter to Steam directly from Wauncher
+- Added a `Disable Carousel` setting for lower memory usage
+- Added a `Disable Hardware Acceleration` setting
+- Improved server browser behavior and added scrolling for longer server lists
+- Server information is now pulled from the live ClassicCounter server list repository
+- Various backend and stability improvements
+
+# Hotfix 
+03/18/2026
+## What's Changed
+- Fixed context menu when page is not in initial position (is scrolled down)
+- Changed how Newest and Oldest sorting works, and added two new sorting methods based on item ID
+- Revamped trading code, so now traded items are properly tracked which allows us in the future to create an accurate trade history
+- Improved the code for validation of items in a trade offer, should fix some bugs
+- StatTrak kills get now reset down to 0 when they get traded away
+- General updates of a weapon no longer update the timestamp used for sorting in the inventory, most commonly seen with StatTrak weapons by getting kills
+- Changed how deleting items works, they are no longer expunged from the database and just remain hidden
+- Made randomness in multiple places on the website more cryptographically safe
+- Fixed traded-up items having incorrect wear name
+- In-game item announcer now works again
+- Trading is no longer under maintainance and is now again available to the public
+
+# Hotfix 
+03/08/2026
+## What's Changed
+- Updated appearance of the "Edit Profile" page on eddies.cc
+- Profiles on eddies.cc are now limited to a maximum level of 6,199
+- Profile vanity URLs on eddies.cc are now limited to a minimum of three characters
+- Image hosts used for eddies.cc profiles are now whitelist only
+- Added an information tab to the "Edit Profile" page on eddies.cc that lists whitelisted image hosts
+- Groups on eddies.cc can now have a custom URL set, directing to the desired Steam group URL instead of the vanity URL that matches the group name
+- Groups on eddies.cc will direct to the vanity URL that matches the group name if no custom group URL is set when editing profile
+
+# Anniversary Update 
+03/04/2026
+## What's Changed
+- Donors now permanently get an extra drop at the end of each match, on top of the extra drop during this month's event. We're grateful for your support!
+- NOVAGANG Collection drops have been reverted back to normal rates.
+- The drop pool has been updated to make some less desirable drops less common, some item collections have been disabled, and a few more cases have been added to the drop pool.
+- Previously nonfunctional map de_nuketown has been fixed and added to the map pool.
+- Profile backgrounds on eddies.cc now scale with your display resolution.
+- Profile background holder on eddies.cc has been updated to a lower opacity gradient, making backgrounds more visible.
+- Fixed broken or invalid item IDs in player inventories.
+- Bug fixes and security improvements.
+
+# Hotfix
+02/16/2026
+## What's Changed
+- Fixed NOVAGANG Collection drop names and images not appearing in game (make sure to run the launcher)
+- CZ-75 now works again on team Terrorists
+- Fixes for Shattered Web knives
+- Updated map list for !nominate command
+- Background video on the classiccounter.cc website now works properly again
+- Backend fixes and improvements
+
+# NOVAGANG Collection Update
+02/15/2026
+## What's Changed
+- Added NOVAGANG Sticker Capsule
+- Added Dysocjacja by Exodus1900
+- Added Inure+Idyllic by Exodus1900
+- Added bits and pieces by gv1nn
+- Added FREE GEEK by gv1nn
+- Added Atticus by Ways
+- Added You Lose Forever by Ways
+- Added [x]"TheDevilMayCry!" by prblm
+- Added Veire Dawf by prblm
+- Added ｓｏｎａｔａ░ｄｅ░ｌｌｕｖｉａ　（卸ぬマ）（卸ぬマ） by Trauma
+- Added Vai S.//3 バロック by Trauma
+- Added 760 by Zephrxd
+- Added THE HELLSING CONSPIRACY by Zephrxd
+- Added No Body by Zootzie
+- Added Terminal Z by Zootzie
+- Added H.T.N.G by NOVAGANG
+- Added H.T.N.G. VOL. 2: JUDGEMENT DAY by NOVAGANG
+
+
+
+
+
+

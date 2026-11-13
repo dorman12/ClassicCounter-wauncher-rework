@@ -1,0 +1,185 @@
+﻿<UserControl
+    x:Class="Wauncher.Views.Controls.UpdateBarControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Wauncher.ViewModels"
+    xmlns:svg="clr-namespace:Avalonia.Svg.Controls;assembly=Avalonia.Svg.Skia"
+    mc:Ignorable="d"
+    d:DesignWidth="1120"
+    d:DesignHeight="74"
+    x:DataType="vm:MainWindowViewModel">
+
+    <Border
+        x:Name="BottomBarBorder"
+        Background="{DynamicResource AppMainBackground}"
+        BorderBrush="{DynamicResource AppDivider}"
+        BorderThickness="0,1,0,0"
+        BoxShadow="{DynamicResource AppBottomBarBoxShadow}"
+        Padding="16,10">
+        <!-- Exact 3-column TLauncher layout: Left (Account) | Center (Version Selector + Launch Button) | Right (Tools) -->
+        <Grid ColumnDefinitions="260,*,160" VerticalAlignment="Center">
+
+            <!-- 1. LEFT: Account block (TLauncher username box style) -->
+            <Border Grid.Column="0" Background="#18FFFFFF" BorderBrush="{DynamicResource AppDivider}" BorderThickness="1" CornerRadius="8" Padding="10,6" HorizontalAlignment="Left" MinWidth="220">
+                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                    <Border Width="38" Height="38" Background="{DynamicResource AppInputBg}" ClipToBounds="True" CornerRadius="19" BorderBrush="{DynamicResource AppDivider2}" BorderThickness="1.5">
+                        <Image asyncImageLoader:ImageLoader.Source="{Binding ProfilePicture}" Stretch="UniformToFill" />
+                    </Border>
+                    <StackPanel VerticalAlignment="Center" Spacing="2">
+                        <TextBlock FontSize="13" FontWeight="Bold" LetterSpacing="0.3" Foreground="{DynamicResource AppPrimaryText}" Text="{Binding UsernameGreeting}" TextTrimming="CharacterEllipsis" MaxWidth="150" />
+                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                            <Ellipse Width="6" Height="6" VerticalAlignment="Center" Fill="{Binding WhitelistDotColor}" />
+                            <TextBlock FontSize="10" Foreground="{DynamicResource AppBulletText}" Text="{Binding WhitelistText}" />
+                            <TextBlock FontSize="10" Foreground="{DynamicResource AppDivider2}" Text="•" />
+                            <TextBlock FontSize="10" Classes="selectedlabel" Classes.noserver="{Binding IsNoServerSelected}" Classes.serverselected="{Binding IsServerSelected}" Text="{Binding SelectedLabel}" TextTrimming="CharacterEllipsis" MaxWidth="100" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- 2. CENTER: Version Select Dropdown + Big Launch Button (Seamlessly centered) -->
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="14">
+                
+                <!-- Compact Background Music Player -->
+                <Border Background="#18FFFFFF" BorderBrush="{DynamicResource AppDivider2}" BorderThickness="1" CornerRadius="8" Padding="12,6" Height="48" MinWidth="260" MaxWidth="320" VerticalAlignment="Center">
+                    <Grid RowDefinitions="Auto,*" VerticalAlignment="Center">
+                        <!-- Track Name -->
+                        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                            <Path Grid.Column="0" Width="11" Height="11" Stretch="Uniform" Fill="{DynamicResource AppAccentGreen}" Margin="0,0,6,0" VerticalAlignment="Center"
+                                  Data="M12,3V13.55C11.41,13.21 10.73,13 10,13C7.79,13 6,14.79 6,17C6,19.21 7.79,21 10,21C12.21,21 14,19.21 14,17V7H18V3H12Z" />
+                            <TextBlock Grid.Column="1" x:Name="CurrentTrackText" Text="Папка с музыкой не выбрана" FontSize="10.5" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource AppPrimaryText}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                        </Grid>
+
+                        <!-- Playback Controls + Refresh + Volume -->
+                        <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto,Auto,Auto,*,Auto,55" Margin="0,3,0,0" VerticalAlignment="Center">
+                            <!-- Prev -->
+                            <Button Grid.Column="0" Classes="titleBtn" Width="20" Height="20" Click="MusicPrev_Click" ToolTip.Tip="{DynamicResource Loc_PrevTrack}">
+                                <Path Width="8" Height="8" Stretch="Uniform" Fill="{DynamicResource AppPrimaryText}"
+                                      Data="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z" />
+                            </Button>
+
+                            <!-- Play / Pause -->
+                            <Button Grid.Column="1" Classes="titleBtn" Width="22" Height="22" Click="MusicPlayPause_Click" Margin="2,0" ToolTip.Tip="Play / Pause">
+                                <Path x:Name="PlayPauseIcon" Width="10" Height="10" Stretch="Uniform" Fill="{DynamicResource AppAccentGreen}"
+                                      Data="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                            </Button>
+
+                            <!-- Next -->
+                            <Button Grid.Column="2" Classes="titleBtn" Width="20" Height="20" Click="MusicNext_Click" ToolTip.Tip="{DynamicResource Loc_NextTrack}">
+                                <Path Width="8" Height="8" Stretch="Uniform" Fill="{DynamicResource AppPrimaryText}"
+                                      Data="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
+                            </Button>
+
+                            <!-- Refresh Folder Playlist Button -->
+                            <Button Grid.Column="3" Classes="titleBtn" Width="20" Height="20" Click="MusicRefresh_Click" Margin="2,0,0,0" ToolTip.Tip="{DynamicResource Loc_RefreshPlaylist}">
+                                <Path Width="9" Height="9" Stretch="Uniform" Fill="{DynamicResource AppAccentGreen}"
+                                      Data="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                            </Button>
+
+                            <!-- Spacer -->
+                            <Rectangle Grid.Column="4" Fill="Transparent" />
+
+                            <!-- Volume Icon / Mute -->
+                            <Button Grid.Column="5" Classes="titleBtn" Width="18" Height="18" Click="MusicMute_Click" ToolTip.Tip="Mute / Unmute" Margin="0,0,4,0">
+                                <Path x:Name="VolumeIcon" Width="9" Height="9" Stretch="Uniform" Fill="{DynamicResource AppMutedText}"
+                                      Data="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18.01,19.86 21,16.28 21,12C21,7.72 18.01,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+                            </Button>
+
+                            <!-- Volume Slider -->
+                            <Slider Grid.Column="6" x:Name="MusicVolumeSlider" Minimum="0" Maximum="1" Value="0.5" Height="18" ValueChanged="MusicVolume_Changed" VerticalAlignment="Center" />
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- Big Main Launch Game Button (TLauncher 'Войти в игру' Button) -->
+                <Border CornerRadius="8" ClipToBounds="True" x:Name="LaunchButtonGlow" Classes="launchGlow"
+                        Classes.installPending="{Binding IsInstallPending}" Classes.updatePending="{Binding IsUpdatePending}"
+                        Classes.activeUpdate="{Binding UpdateService.IsUpdating}" Classes.activeInstall="{Binding IsInstallingOrChaining}"
+                        BoxShadow="{DynamicResource AppLaunchBoxShadow}">
+                    <Grid>
+                        <!-- Progress fill layers -->
+                        <Border
+                            IsVisible="{Binding IsUpdatingOrChaining}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="#FFC107"
+                            RenderTransformOrigin="0,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="{Binding LaunchProgressScale}">
+                                    <ScaleTransform.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="ScaleX" Duration="0:0:0.2" />
+                                        </Transitions>
+                                    </ScaleTransform.Transitions>
+                                </ScaleTransform>
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            IsVisible="{Binding UpdateService.IsInstalling}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="{Binding LaunchProgressScale}">
+                                    <ScaleTransform.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="ScaleX" Duration="0:0:0.2" />
+                                        </Transitions>
+                                    </ScaleTransform.Transitions>
+                                </ScaleTransform>
+                            </Border.RenderTransform>
+                        </Border>
+
+                        <!-- Buttons on top of fill layers -->
+                        <Grid ColumnDefinitions="*,1,38">
+                            <Button x:Name="LaunchUpdateButton" Grid.Column="0" Classes="launchBtn" Classes.updating="{Binding IsUpdatingOrInstalling}"
+                                    Classes.installPending="{Binding IsInstallPending}" Classes.updatePending="{Binding IsUpdatePending}"
+                                    Padding="28,12" Height="48" MinWidth="190" HorizontalContentAlignment="Center" Command="{Binding LaunchGameCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Svg Width="16" Height="20" VerticalAlignment="Center" Path="/Assets/CS-logo.svg" IsVisible="{Binding !IsUpdatingOrInstalling}" />
+                                    <TextBlock FontSize="14" FontWeight="ExtraBold" LetterSpacing="1" Foreground="{DynamicResource AppPrimaryText}" VerticalAlignment="Center" Text="{Binding LaunchButtonText}" TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                            </Button>
+                            <Rectangle Grid.Column="1" Fill="#40000000" />
+                            <Button x:Name="ArrowButton" Grid.Column="2" Classes="launchBtn" Classes.updating="{Binding IsUpdatingOrInstalling}"
+                                    Classes.installPending="{Binding IsInstallPending}" Classes.updatePending="{Binding IsUpdatePending}"
+                                    Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                <Button.Flyout>
+                                    <MenuFlyout Placement="Top">
+                                        <MenuItem Classes="compactFlyoutItem" Header="{DynamicResource Loc_VerifyFiles}" Command="{Binding ValidateFilesCommand}" />
+                                        <MenuItem Classes="compactFlyoutItem" Header="{DynamicResource Loc_OpenGameFolder}" Click="OpenGameFolder_Click" />
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                                <Path Width="8" Height="5" Data="M0,5 L4,0 L8,5" Stroke="White" StrokeThickness="1.5" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <!-- 3. RIGHT: Utility Icon Buttons (Folder, Settings, Info) -->
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Spacing="8">
+                <!-- Open Game Folder -->
+                <Button Classes="iconBtn" Width="36" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="OpenGameFolder_Click" CornerRadius="18" ToolTip.Tip="{DynamicResource Loc_OpenGameFolder}">
+                    <Path Width="18" Height="18" Stretch="Uniform" Fill="White"
+                          Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z" />
+                </Button>
+                <!-- Settings -->
+                <Button Classes="iconBtn" Width="36" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_Settings" CornerRadius="18" ToolTip.Tip="{DynamicResource Loc_SettingsTitle}">
+                    <Path Width="18" Height="18" Stretch="Uniform" Fill="White"
+                          Data="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
+                </Button>
+                <!-- Info -->
+                <Button Classes="iconBtn" Width="36" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_Info" CornerRadius="18" ToolTip.Tip="{DynamicResource Loc_InfoTitle}">
+                    <Path Width="18" Height="18" Stretch="Uniform" Fill="White"
+                          Data="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M13,17h-2v-6h2V17z M13,9h-2V7h2V9z" />
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

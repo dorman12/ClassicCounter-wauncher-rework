@@ -1,0 +1,93 @@
+﻿<UserControl
+    x:Class="Wauncher.Views.Controls.PatchNotesControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Wauncher.ViewModels"
+    mc:Ignorable="d"
+    d:DesignWidth="600"
+    d:DesignHeight="300"
+    x:DataType="vm:MainWindowViewModel">
+
+    <Border
+        Background="#14000000"
+        BorderBrush="{DynamicResource AppDivider}"
+        BorderThickness="1"
+        CornerRadius="8"
+        ClipToBounds="True">
+        <Grid>
+            <!-- Loading state -->
+            <StackPanel
+                x:Name="PatchNotesLoadingPanel"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="6">
+                <TextBlock
+                    FontSize="12"
+                    FontStyle="Italic"
+                    HorizontalAlignment="Center"
+                    Foreground="{DynamicResource AppMutedText}"
+                    Text="Loading patch notes..." />
+            </StackPanel>
+
+            <!-- Content -->
+            <Grid x:Name="PatchNotesContent" IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- TLauncher-like News Header -->
+                <Border Grid.Row="0" Background="#20FFFFFF" Padding="12,0">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Path Width="12" Height="12" Stretch="Uniform" Fill="{DynamicResource AppAccentGreen}"
+                                  Data="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19M7,7H17V9H7V7M7,11H17V13H7V11M7,15H14V17H7V15Z" />
+                            <TextBlock Text="{DynamicResource Loc_NewsTitle}"
+                                       FontSize="11" FontWeight="Bold" LetterSpacing="1"
+                                       Foreground="{DynamicResource AppPrimaryText}" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{DynamicResource Loc_NewsLatestUpdates}" FontSize="10" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
+
+                <Rectangle Grid.Row="1" Fill="{DynamicResource AppDivider}" />
+
+                <ScrollViewer
+                    x:Name="PatchNotesScroll"
+                    Grid.Row="2"
+                    Padding="16,12"
+                    ClipToBounds="True"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="0">
+                        <ItemsControl x:Name="PatchNotesList" HorizontalAlignment="Stretch">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Spacing="0" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:PatchNoteItem">
+                                    <Grid Margin="0,2">
+                                        <TextBlock IsVisible="{Binding IsMajorHeader}" Margin="0,12,0,4" FontSize="18" FontWeight="ExtraBold" Foreground="{DynamicResource AppPrimaryText}" TextWrapping="Wrap" LineHeight="24" Text="{Binding Text}" />
+                                        <TextBlock IsVisible="{Binding IsDateHeader}" Margin="0,0,0,6" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AppMutedText}" TextWrapping="Wrap" LineHeight="16" Text="{Binding Text}" />
+                                        <TextBlock IsVisible="{Binding IsHeader}" Margin="0,8,0,4" FontSize="14" FontWeight="Bold" Foreground="{DynamicResource AppAccentGreen}" TextWrapping="Wrap" LineHeight="18" Text="{Binding Text}" />
+                                        <Grid IsVisible="{Binding IsBullet}" Margin="0,2" ColumnDefinitions="14,*">
+                                            <TextBlock Grid.Column="0" FontSize="12" Foreground="{DynamicResource AppAccentGreen}" VerticalAlignment="Top" Margin="0,1,0,0" Text="•" />
+                                            <TextBlock Grid.Column="1" FontSize="12" Foreground="{DynamicResource AppBulletText}" TextWrapping="Wrap" LineHeight="18" Text="{Binding Text}" />
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Border Height="20" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

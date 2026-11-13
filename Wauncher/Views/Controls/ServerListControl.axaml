@@ -1,0 +1,107 @@
+﻿<UserControl
+    x:Class="Wauncher.Views.Controls.ServerListControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Wauncher.ViewModels"
+    mc:Ignorable="d"
+    d:DesignWidth="600"
+    d:DesignHeight="200"
+    x:DataType="vm:MainWindowViewModel">
+
+    <Border
+        Background="#18000000"
+        BorderBrush="{DynamicResource AppDivider}"
+        BorderThickness="1"
+        CornerRadius="8"
+        ClipToBounds="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="1" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- TLauncher-like Top Bar for Servers -->
+            <Border Grid.Row="0" Background="#20FFFFFF" Padding="12,0">
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <Path Width="12" Height="12" Stretch="Uniform" Fill="{DynamicResource AppAccentGreen}"
+                              Data="F0 M3,3h18v5h-18z M5,4.5h2.5v2h-2.5z M3,9.5h18v5h-18z M5,11h2.5v2h-2.5z M3,16h18v5h-18z M5,17.5h2.5v2h-2.5z" />
+                        <TextBlock Text="{DynamicResource Loc_ServersTitle}"
+                                   FontSize="11" FontWeight="Bold" LetterSpacing="1"
+                                   Foreground="{DynamicResource AppPrimaryText}" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" Text="{DynamicResource Loc_ServersLiveBrowser}" FontSize="10" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+
+            <Rectangle Grid.Row="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Server list scroll area -->
+            <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Servers}" Margin="6,4">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="3" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Classes="serverBtn" Click="ServerItem_Click" Tag="{Binding}"
+                                    Padding="10,6" CornerRadius="6">
+                                <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+                                    <!-- Online Status Dot -->
+                                    <Ellipse Grid.Column="0" Width="8" Height="8"
+                                             VerticalAlignment="Center" Margin="0,0,10,0"
+                                             Fill="{Binding DotColor}" />
+
+                                    <!-- Server Name, Region Flag, Map -->
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                        <!-- Flag -->
+                                        <Border CornerRadius="2" ClipToBounds="True" VerticalAlignment="Center"
+                                                Width="22" Height="15"
+                                                BorderBrush="{DynamicResource AppDivider2}" BorderThickness="1"
+                                                IsVisible="{Binding FlagUrl, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                            <Image asyncImageLoader:ImageLoader.Source="{Binding FlagUrl}" Stretch="UniformToFill" />
+                                        </Border>
+
+                                        <!-- None placeholder icon -->
+                                        <Border CornerRadius="2" VerticalAlignment="Center"
+                                                Width="22" Height="15"
+                                                BorderBrush="{DynamicResource AppDivider2}" BorderThickness="1"
+                                                IsVisible="{Binding IsNone}">
+                                            <Path Width="10" Height="10" Stretch="Uniform"
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  Fill="{DynamicResource AppMutedText}"
+                                                  Data="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M4,12c0-4.42,3.58-8,8-8c1.85,0,3.55,0.63,4.9,1.69L5.69,16.9C4.63,15.55,4,13.85,4,12z M12,20c-1.85,0-3.55-0.63-4.9-1.69L18.31,7.1C19.37,8.45,20,10.15,20,12C20,16.42,16.42,20,12,20z" />
+                                        </Border>
+
+                                        <TextBlock FontSize="13" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource AppPrimaryText}"
+                                                   Text="{Binding DisplayName}" VerticalAlignment="Center" />
+                                        
+                                        <TextBlock FontSize="11" Foreground="{DynamicResource AppSectionLabel}"
+                                                   Text="{Binding Subtitle}" VerticalAlignment="Center"
+                                                   Margin="4,0,0,0" />
+                                    </StackPanel>
+
+                                    <!-- Player Count Tag -->
+                                    <Border Grid.Column="2" Background="#20FFFFFF" CornerRadius="4" Padding="6,2" VerticalAlignment="Center">
+                                        <TextBlock FontSize="12" FontWeight="Bold"
+                                                   FontFamily="Consolas,monospace"
+                                                   Foreground="{DynamicResource AppPrimaryText}"
+                                                   Text="{Binding PlayerCount}" />
+                                    </Border>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

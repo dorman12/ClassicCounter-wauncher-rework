@@ -1,0 +1,62 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Wauncher.App"
+             x:CompileBindings="True"
+             x:DataType="local:App"
+             xmlns:local="using:Wauncher"
+             xmlns:themes="using:Avalonia.Styling"
+             xmlns:fluent="using:Avalonia.Themes.Fluent">
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme>
+            <FluentTheme.Palettes>
+                <fluent:ColorPaletteResources x:Key="Light" Accent="#00C8FF" />
+                <fluent:ColorPaletteResources x:Key="Dark" Accent="#00C8FF" />
+            </FluentTheme.Palettes>
+        </FluentTheme>
+        <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+        <StyleInclude Source="/Assets/Styles.axaml"/>
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- ── Glass Theme — dark navy + cyan glow ── -->
+            <SolidColorBrush x:Key="AppTitleBarBrush">#99060A12</SolidColorBrush>
+            <SolidColorBrush x:Key="AppMainBackground">#B8080C14</SolidColorBrush>
+            <!-- Cyan — primary glow/accent (replaces green) -->
+            <SolidColorBrush x:Key="AppAccentGreen">#00C8FF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppAccentGlowBrush">#9900C8FF</SolidColorBrush>
+            <x:Double x:Key="AppGlowOpacity">0.8</x:Double>
+            <SolidColorBrush x:Key="AppTextColor">White</SolidColorBrush>
+            <SolidColorBrush x:Key="AppPrimaryText">White</SolidColorBrush>
+            <SolidColorBrush x:Key="AppMutedText">#99FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppSectionLabel">#55FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppBodyText">#CCFFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppBulletText">#AAFFFFFF</SolidColorBrush>
+            <!-- Glass dividers — subtle frosted lines -->
+            <SolidColorBrush x:Key="AppDivider">#28FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppDivider2">#45FFFFFF</SolidColorBrush>
+            <!-- Glass input fields -->
+            <SolidColorBrush x:Key="AppInputBg">#1AFFFFFF</SolidColorBrush>
+            <!-- Server list interactions -->
+            <SolidColorBrush x:Key="AppServerHover">#22FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppServerPressed">#11FFFFFF</SolidColorBrush>
+            <!-- Glass icon buttons — frosted circles -->
+            <SolidColorBrush x:Key="AppIconBtnBg">#1EFFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppIconBtnHover">#38FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppIconBtnPressed">#12FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="AppIconBtnBorder">#35FFFFFF</SolidColorBrush>
+            <!-- Right panel — slightly different glass shade for depth -->
+            <SolidColorBrush x:Key="AppRightPanelBg">#E5060A10</SolidColorBrush>
+            <SolidColorBrush x:Key="AppServerListBg">#F0060A10</SolidColorBrush>
+            <SolidColorBrush x:Key="AppGreetingName">White</SolidColorBrush>
+            <!-- Links match accent cyan -->
+            <SolidColorBrush x:Key="AppLinkText">#00C8FF</SolidColorBrush>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

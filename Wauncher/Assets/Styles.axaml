@@ -1,0 +1,88 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" />
+    </Design.PreviewWith>
+
+    <!-- ══════════════════════════════════════════════
+         TYPOGRAPHY — crisp, minimal, slightly spaced
+         ══════════════════════════════════════════════ -->
+    <Style Selector="TextBlock.h1">
+        <Setter Property="FontFamily" Value="Segoe UI Variable Display,Segoe UI,sans-serif" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="600" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="LetterSpacing" Value="-0.5" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="TextBlock.h2">
+        <Setter Property="FontFamily" Value="Segoe UI Variable Display,Segoe UI,sans-serif" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="600" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="LetterSpacing" Value="-0.25" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Base button reset -->
+    <Style Selector="Button">
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Opacity" Value="1" />
+    </Style>
+
+    <!-- Legacy compat stubs (kept for safety, updated to glass look) -->
+    <Style Selector="Button.info">
+        <Setter Property="Background" Value="#1AFFFFFF" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="Button.info:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#30FFFFFF" />
+    </Style>
+    <Style Selector="Button.launch">
+        <Setter Property="Background" Value="#00C8FF" />
+    </Style>
+    <Style Selector="Button.launch:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#33DDFF" />
+    </Style>
+
+    <!-- ══════════════════════════════════════════════
+         HYPERLINK BUTTON — glass cyan tint
+         ══════════════════════════════════════════════ -->
+    <Style Selector="Button.HyperlinkButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#00C8FF" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="Button" x:DataType="Button">
+                <TextBlock
+                    Text="{TemplateBinding Content}"
+                    TextDecorations="Underline"
+                    VerticalAlignment="Center" />
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Button.HyperlinkButton:pointerover">
+        <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="Button.HyperlinkButton:pressed">
+        <Setter Property="Opacity" Value="1" />
+    </Style>
+
+    <!-- ══════════════════════════════════════════════
+         GLASS TEXTBOX — frosted input field with cyan focus ring
+         ══════════════════════════════════════════════ -->
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="#6600C8FF" />
+        <Setter Property="BoxShadow" Value="0 0 10 0 #3300C8FF" />
+    </Style>
+
+</Styles>

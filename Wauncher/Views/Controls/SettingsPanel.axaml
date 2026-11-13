@@ -1,0 +1,258 @@
+﻿<UserControl
+    x:Class="Wauncher.Views.Controls.SettingsPanel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Wauncher.ViewModels"
+    mc:Ignorable="d"
+    d:DesignWidth="720"
+    d:DesignHeight="415"
+    x:DataType="vm:SettingsWindowViewModel"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch">
+
+    <UserControl.Styles>
+        <Style Selector="Button.compactActionBtn">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="MinWidth" Value="100" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Background" Value="#1B6EA8" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border x:Name="PART_Border"
+                            MinWidth="{TemplateBinding MinWidth}"
+                            Height="{TemplateBinding Height}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Background="{TemplateBinding Background}">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="0:0:0.16" />
+                            </Transitions>
+                        </Border.Transitions>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="Button.compactActionBtn:pointerover /template/ Border#PART_Border">
+            <Setter Property="Background" Value="#2A8AD2" />
+        </Style>
+        <Style Selector="Button.compactActionBtn:pressed /template/ Border#PART_Border">
+            <Setter Property="Background" Value="#155B8D" />
+        </Style>
+        <Style Selector="Button.compactActionBtn:disabled /template/ Border#PART_Border">
+            <Setter Property="Background" Value="#686868" />
+        </Style>
+        <Style Selector="Button.compactActionBtn.danger /template/ Border#PART_Border">
+            <Setter Property="Background" Value="#A82020" />
+        </Style>
+        <Style Selector="Button.compactActionBtn.danger:pointerover /template/ Border#PART_Border">
+            <Setter Property="Background" Value="#C93030" />
+        </Style>
+        <Style Selector="Button.compactActionBtn.danger:pressed /template/ Border#PART_Border">
+            <Setter Property="Background" Value="#8A1A1A" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{DynamicResource AppMainBackground}" MinHeight="415">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Height="44">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="15"
+                FontWeight="Bold"
+                Foreground="{DynamicResource AppPrimaryText}"
+                Text="{DynamicResource Loc_SettingsTitle}" />
+            <Button
+                x:Name="ClosePanelButton"
+                HorizontalAlignment="Right"
+                Classes="titleBtn"
+                Width="44"
+                Height="44"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+                <Path Width="10" Height="10"
+                      Data="M0,0 L10,10 M10,0 L0,10"
+                      Stroke="White" StrokeThickness="1.5" />
+            </Button>
+        </Grid>
+
+        <Rectangle Grid.Row="1" Fill="{DynamicResource AppDivider}" />
+
+        <!-- Vertical list of settings -->
+        <ScrollViewer Grid.Row="2"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+        <StackPanel VerticalAlignment="Center" Margin="40,10,40,10" Spacing="0">
+
+            <!-- 0. Language Selector (English / Русский) -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_LangSettingTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_LangSettingSub}" Margin="0,2,0,0" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button x:Name="LangRuButton" Classes="compactActionBtn" Click="LangRu_Click" Content="Русский" MinWidth="75" />
+                    <Button x:Name="LangEnButton" Classes="compactActionBtn" Click="LangEn_Click" Content="English" MinWidth="75" />
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Enable In-Game Inventory -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_EnableGcTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_EnableGcSub}" Margin="0,2,0,0" />
+                </StackPanel>
+                <ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding EnableGc}" OffContent="" OnContent="" />
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Skip Updates -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_SkipUpdatesTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_SkipUpdatesSub}" Margin="0,2,0,0" />
+                </StackPanel>
+                <ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding SkipUpdates}" OffContent="" OnContent="" />
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Discord RPC -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_DiscordRpcTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_DiscordRpcSub}" Margin="0,2,0,0" />
+                </StackPanel>
+                <ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding DiscordRpc}" OffContent="" OnContent="" />
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Window Size Presets -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_WindowSizeTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_WindowSizeSub}" Margin="0,2,0,0" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button Classes="compactActionBtn" Click="SizeCompact_Click" Content="{DynamicResource Loc_SizeCompact}" MinWidth="85" />
+                    <Button Classes="compactActionBtn" Click="SizeStandard_Click" Content="{DynamicResource Loc_SizeStandard}" MinWidth="90" />
+                    <Button Classes="compactActionBtn" Click="SizeLarge_Click" Content="{DynamicResource Loc_SizeLarge}" MinWidth="85" />
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Background Music Folder Selection -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_MusicSettingTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{Binding MusicFolderDisplay}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" MaxWidth="350" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button x:Name="ChooseMusicFolderButton" Classes="compactActionBtn" Click="ChooseMusicFolderButton_Click" Content="{DynamicResource Loc_ChooseFolder}" />
+                    <Button x:Name="ResetMusicFolderButton" Classes="compactActionBtn danger" Click="ResetMusicFolderButton_Click" Content="{DynamicResource Loc_Reset}" />
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Trickshot Sound Selection -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="46">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_TrickshotTitle}" />
+                    <TextBlock x:Name="NoscopeSoundStatusText" FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="csgo\sound\quake\perfect.mp3" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" MaxWidth="340" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button x:Name="PlayNoscopeSoundButton" Classes="compactActionBtn" Click="PlayNoscopeSound_Click" ToolTip.Tip="{DynamicResource Loc_PlayNoscopeSound}" MinWidth="34" Width="34">
+                        <Path Width="10" Height="10" Stretch="Uniform" Fill="White" Data="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                    </Button>
+                    <Button x:Name="ChangeNoscopeSoundButton" Classes="compactActionBtn" Click="ChangeNoscopeSound_Click" Content="{DynamicResource Loc_ChangeSound}" MinWidth="110" />
+                    <Button x:Name="ResetNoscopeSoundButton" Classes="compactActionBtn danger" Click="ResetNoscopeSound_Click" Content="{DynamicResource Loc_ResetDefault}" ToolTip.Tip="{DynamicResource Loc_ResetNoscopeSound}" MinWidth="75" />
+                    <Button x:Name="OpenQuakeFolderButton" Classes="compactActionBtn" Click="OpenQuakeFolder_Click" ToolTip.Tip="{DynamicResource Loc_OpenQuakeFolder}" MinWidth="34" Width="34" Background="#25FFFFFF">
+                        <Path Width="12" Height="12" Stretch="Uniform" Fill="White" Data="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Disable HW Acceleration -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_DisableHwTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_DisableHwSub}" Margin="0,2,0,0" />
+                </StackPanel>
+                <ToggleSwitch x:Name="DisableHardwareAccelerationToggle" Grid.Column="1" VerticalAlignment="Center"
+                              IsChecked="{Binding DisableHardwareAcceleration}"
+                              Checked="DisableHardwareAccelerationToggle_Changed"
+                              Unchecked="DisableHardwareAccelerationToggle_Changed"
+                              OffContent="" OnContent="" />
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Add to Steam (bottom) -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_AddToSteamTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_AddToSteamSub}" Margin="0,2,0,0" />
+                </StackPanel>
+                <Button x:Name="AddToSteamButton" Grid.Column="1" VerticalAlignment="Center"
+                        Classes="compactActionBtn" Click="AddToSteamButton_Click" Content="{DynamicResource Loc_AddToSteamTitle}" />
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Clear Download Cache -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_ClearCacheTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_ClearCacheSub}" Margin="0,2,0,0" />
+                </StackPanel>
+                <Button x:Name="ClearCacheButton" Grid.Column="1" VerticalAlignment="Center"
+                        Classes="compactActionBtn danger" Click="ClearCacheButton_Click" Content="{DynamicResource Loc_ClearCache}" />
+            </Grid>
+
+        </StackPanel>
+        </ScrollViewer>
+
+        <Rectangle Grid.Row="3" Fill="{DynamicResource AppDivider}" />
+
+        <!-- Launch Options -->
+        <Grid Grid.Row="4" Margin="40,12,40,16" ColumnDefinitions="Auto,*">
+            <TextBlock Grid.Column="0" FontSize="10" FontWeight="Bold" LetterSpacing="2"
+                       Foreground="{DynamicResource AppMutedText}"
+                       VerticalAlignment="Center"
+                       Text="{DynamicResource Loc_LaunchOptionsTitle}"
+                       Margin="0,0,16,0" />
+            <TextBox Grid.Column="1"
+                     Padding="12,9"
+                     Background="{DynamicResource AppInputBg}"
+                     BorderThickness="0" CaretBrush="White" CornerRadius="6"
+                     FontSize="13" Foreground="{DynamicResource AppPrimaryText}"
+                     Watermark="e.g. -high -novid +fps_max 300"
+                     Text="{Binding LaunchOptions, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+    </Grid>
+</UserControl>
