@@ -22,7 +22,7 @@ namespace Wauncher.Utils
     public interface IGitHub
     {
         [Headers("User-Agent: ClassicCounter Wauncher")]
-        [Get("/repos/ClassicCounter/launcher/releases/latest")]
+        [Get("/repos/dorman12/ClassicCounter-wauncher-rework/releases/latest")]
         Task<string> GetLatestRelease();
 
         [Headers("User-Agent: ClassicCounter Wauncher",
