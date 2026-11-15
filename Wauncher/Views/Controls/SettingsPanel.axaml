@@ -178,6 +178,34 @@
 
             <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
 
+            <!-- Auto-Config (Exec) - Prevents Viewmodel & Settings Reset -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="46">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_AutoConfigTitle}" />
+                    <TextBlock x:Name="AutoConfigStatusSubText" FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_AutoConfigSub}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" MaxWidth="340" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <Button x:Name="ConfigureAutoConfigButton" Classes="compactActionBtn" Click="ConfigureAutoConfigButton_Click" Content="{DynamicResource Loc_AutoConfigConfigureBtn}" MinWidth="110" />
+                    <ToggleSwitch x:Name="AutoConfigToggle" VerticalAlignment="Center" IsChecked="{Binding AutoConfigEnabled}" OffContent="" OnContent="" />
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
+            <!-- Custom In-Game Font Selection -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="46">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_CustomFontTitle}" />
+                    <TextBlock x:Name="CustomFontStatusText" FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{Binding CustomFontDisplay}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" MaxWidth="340" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button x:Name="ConfigureFontButton" Classes="compactActionBtn" Click="ConfigureFontButton_Click" Content="{DynamicResource Loc_CustomFontConfigureBtn}" MinWidth="110" />
+                    <Button x:Name="ResetFontDirectButton" Classes="compactActionBtn danger" Click="ResetFontDirectButton_Click" Content="{DynamicResource Loc_ResetDefault}" MinWidth="75" />
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
             <!-- Background Music Folder Selection -->
             <Grid ColumnDefinitions="*,Auto" MinHeight="44">
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">

@@ -351,5 +351,19 @@
             </Border>
         </Border>
 
+        <!-- Auto-Config (Exec) Overlay -->
+        <Border Grid.Row="0" Grid.RowSpan="3" IsVisible="{Binding IsAutoConfigModalOpen}" Background="#E5060A12" ZIndex="300" Padding="30">
+            <Border Background="{DynamicResource AppMainBackground}" BorderBrush="{DynamicResource AppAccentGreen}" BorderThickness="1" CornerRadius="12" ClipToBounds="True" MaxWidth="740" MaxHeight="540">
+                <controls:AutoConfigModal x:Name="AutoConfigModalControl" />
+            </Border>
+        </Border>
+
+        <!-- Custom Font Overlay -->
+        <Border Grid.Row="0" Grid.RowSpan="3" IsVisible="{Binding IsFontModalOpen}" Background="#E5060A12" ZIndex="300" Padding="30">
+            <Border Background="{DynamicResource AppMainBackground}" BorderBrush="{DynamicResource AppAccentGreen}" BorderThickness="1" CornerRadius="12" ClipToBounds="True" MaxWidth="640" MaxHeight="440">
+                <controls:CustomFontModal x:Name="CustomFontModalControl" />
+            </Border>
+        </Border>
+
     </Grid>
 </Window>

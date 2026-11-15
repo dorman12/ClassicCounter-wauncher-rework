@@ -117,6 +117,45 @@ namespace Wauncher.Views
                             vm.IsAppearancePanelOpen = false;
                     };
                 }
+
+                Controls.SettingsPanel.AutoConfigModalRequested += (settingsVm) =>
+                {
+                    if (DataContext is MainWindowViewModel vm)
+                    {
+                        AutoConfigModalControl.LoadData(settingsVm);
+                        vm.IsAutoConfigModalOpen = true;
+                    }
+                };
+
+                Controls.SettingsPanel.FontModalRequested += (settingsVm) =>
+                {
+                    if (DataContext is MainWindowViewModel vm)
+                    {
+                        CustomFontModalControl.LoadData(settingsVm);
+                        vm.IsFontModalOpen = true;
+                    }
+                };
+
+                Controls.AppearancePanel.FontModalRequested += () =>
+                {
+                    if (DataContext is MainWindowViewModel vm)
+                    {
+                        CustomFontModalControl.LoadData(SettingsWindowViewModel.LoadGlobal());
+                        vm.IsFontModalOpen = true;
+                    }
+                };
+
+                AutoConfigModalControl.CloseRequested += () =>
+                {
+                    if (DataContext is MainWindowViewModel vm)
+                        vm.IsAutoConfigModalOpen = false;
+                };
+
+                CustomFontModalControl.CloseRequested += () =>
+                {
+                    if (DataContext is MainWindowViewModel vm)
+                        vm.IsFontModalOpen = false;
+                };
             };
 
             Closing += (_, e) =>

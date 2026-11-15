@@ -110,7 +110,36 @@ namespace Wauncher.Services
             ["MusicDefaultTracks"] = "Default (Built-in 2 tracks)",
             ["MusicNoFolder"] = "Music folder not selected",
             ["TrickshotDefaultStatus"] = "Original Quake sound",
-            ["TrickshotCustomStatus"] = "Custom sound: "
+            ["TrickshotCustomStatus"] = "Custom sound: ",
+
+            // Auto-Config (Exec)
+            ["AutoConfigTitle"] = "Auto-Config (Exec)",
+            ["AutoConfigSub"] = "Prevents viewmodel, crosshair & binds from resetting (+exec)",
+            ["AutoConfigConfigureBtn"] = "Configure Exec...",
+            ["AutoConfigModalTitle"] = "AUTO-CONFIG & SETTINGS PRESERVATION (EXEC)",
+            ["AutoConfigModalSub"] = "Commands execute on every launch, locking viewmodel, crosshairs, and custom binds.",
+            ["AutoConfigTabSelectFile"] = "📄 Choose File (.cfg / .txt)",
+            ["AutoConfigTabInsertCommands"] = "✍️ Edit Commands",
+            ["AutoConfigActiveToggle"] = "Enable auto-exec on launch (+exec)",
+            ["AutoConfigSaveBtn"] = "Save and Activate",
+            ["AutoConfigInsertTemplateBtn"] = "Insert Viewmodel Preset",
+            ["AutoConfigClearBtn"] = "Clear",
+            ["AutoConfigStatusActive"] = "✓ Auto-config is active (+exec wauncher_autoexec.cfg)",
+            ["AutoConfigStatusDisabled"] = "Auto-config is disabled",
+            ["AutoConfigSavedSuccess"] = "✓ Auto-config saved and activated!",
+
+            // In-Game Font
+            ["CustomFontTitle"] = "In-Game Font",
+            ["CustomFontSub"] = "Replace HUD, menu & scoreboard fonts (.ttf, .otf, .swf)",
+            ["CustomFontConfigureBtn"] = "Change Font...",
+            ["CustomFontModalTitle"] = "CUSTOM IN-GAME FONT",
+            ["CustomFontModalSub"] = "Install any custom font for game menus, HUD, and damage indicators.",
+            ["CustomFontCurrentLabel"] = "Current font in game:",
+            ["CustomFontDefault"] = "Default (Stratum2)",
+            ["CustomFontChooseBtn"] = "📁 Choose Font File (.ttf, .otf, .swf)...",
+            ["CustomFontResetBtn"] = "Reset to Default",
+            ["CustomFontSuccess"] = "✓ Font successfully installed into the game!",
+            ["CustomFontResetSuccess"] = "✓ Font reset to original Stratum2."
         };
 
         private readonly Dictionary<string, string> _ru = new(StringComparer.OrdinalIgnoreCase)
@@ -209,7 +238,36 @@ namespace Wauncher.Services
             ["MusicDefaultTracks"] = "По умолчанию (Встроенные 2 трека)",
             ["MusicNoFolder"] = "Папка с музыкой не выбрана",
             ["TrickshotDefaultStatus"] = "Оригинальный звук Quake",
-            ["TrickshotCustomStatus"] = "Кастомный звук: "
+            ["TrickshotCustomStatus"] = "Кастомный звук: ",
+
+            // Auto-Config (Exec)
+            ["AutoConfigTitle"] = "Авто-конфиг (Exec)",
+            ["AutoConfigSub"] = "Защита viewmodel, прицела и биндов от сброса (+exec)",
+            ["AutoConfigConfigureBtn"] = "Настроить (Exec)...",
+            ["AutoConfigModalTitle"] = "АВТО-КОНФИГ И ЗАЩИТА НАСТРОЕК (EXEC)",
+            ["AutoConfigModalSub"] = "Команды выполняются при каждом запуске игры, навсегда сохраняя viewmodel, прицел и бинды.",
+            ["AutoConfigTabSelectFile"] = "📄 Выбрать файл (.cfg / .txt)",
+            ["AutoConfigTabInsertCommands"] = "✍️ Редактор команд",
+            ["AutoConfigActiveToggle"] = "Авто-выполнение при запуске (+exec)",
+            ["AutoConfigSaveBtn"] = "Сохранить и активировать",
+            ["AutoConfigInsertTemplateBtn"] = "Вставить пресет Viewmodel",
+            ["AutoConfigClearBtn"] = "Очистить",
+            ["AutoConfigStatusActive"] = "✓ Авто-конфиг активен (+exec wauncher_autoexec.cfg)",
+            ["AutoConfigStatusDisabled"] = "Авто-конфиг выключен",
+            ["AutoConfigSavedSuccess"] = "✓ Конфиг сохранен и успешно активирован!",
+
+            // In-Game Font
+            ["CustomFontTitle"] = "Свой шрифт в игре",
+            ["CustomFontSub"] = "Смена шрифта меню, худа и киллфида (.ttf, .otf, .swf)",
+            ["CustomFontConfigureBtn"] = "Свой шрифт...",
+            ["CustomFontModalTitle"] = "СВОЙ ШРИФТ В ИГРЕ",
+            ["CustomFontModalSub"] = "Установка любого шрифта для главного меню, HUD, таблицы счёта и уведомлений.",
+            ["CustomFontCurrentLabel"] = "Текущий шрифт игры:",
+            ["CustomFontDefault"] = "По умолчанию (Stratum2)",
+            ["CustomFontChooseBtn"] = "📁 Выбрать файл шрифта (.ttf, .otf, .swf)...",
+            ["CustomFontResetBtn"] = "Сбросить на стандартный",
+            ["CustomFontSuccess"] = "✓ Шрифт успешно установлен в игру!",
+            ["CustomFontResetSuccess"] = "✓ Шрифт сброшен на стандартный (Stratum2)."
         };
 
         public string this[string key] => Get(key);

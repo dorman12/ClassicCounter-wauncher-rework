@@ -1,0 +1,139 @@
+<UserControl
+    x:Class="Wauncher.Views.Controls.AutoConfigModal"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="720"
+    d:DesignHeight="520"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch">
+
+    <UserControl.Styles>
+        <Style Selector="Button.actionBtn">
+            <Setter Property="Height" Value="32" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="FontSize" Value="11.5" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Background" Value="#1B6EA8" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.actionBtn:pointerover">
+            <Setter Property="Background" Value="#2A8AD2" />
+        </Style>
+
+        <Style Selector="Button.accentBtn">
+            <Setter Property="Height" Value="36" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="18,0" />
+            <Setter Property="FontSize" Value="12.5" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background" Value="{DynamicResource AppAccentGreen}" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.accentBtn:pointerover">
+            <Setter Property="Opacity" Value="0.9" />
+        </Style>
+
+        <Style Selector="Button.subtleBtn">
+            <Setter Property="Height" Value="32" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Background" Value="#20FFFFFF" />
+            <Setter Property="Foreground" Value="{DynamicResource AppPrimaryText}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppDivider}" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.subtleBtn:pointerover">
+            <Setter Property="Background" Value="#35FFFFFF" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{DynamicResource AppMainBackground}" RowDefinitions="48,1,*,1,56">
+        
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="20,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="10">
+                <Border Width="28" Height="28" CornerRadius="14" Background="{DynamicResource AppAccentGreen}" VerticalAlignment="Center">
+                    <Path Width="14" Height="14" Stretch="Uniform" Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Center"
+                          Data="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource Loc_AutoConfigModalTitle}" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource AppPrimaryText}" />
+                    <TextBlock Text="{DynamicResource Loc_AutoConfigModalSub}" FontSize="10" Foreground="{DynamicResource AppMutedText}" />
+                </StackPanel>
+            </StackPanel>
+
+            <Button x:Name="CloseButton" HorizontalAlignment="Right" Classes="titleBtn" Width="36" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <Path Width="10" Height="10" Data="M0,0 L10,10 M10,0 L0,10" Stroke="White" StrokeThickness="1.5" />
+            </Button>
+        </Grid>
+
+        <Rectangle Grid.Row="1" Fill="{DynamicResource AppDivider}" />
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="2" Margin="24,14" RowDefinitions="Auto,*,Auto" RowSpacing="10">
+            
+            <!-- Toolbar: Load file / Insert template / Clear -->
+            <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="ChooseFileButton" Classes="actionBtn" Click="ChooseFile_Click" Content="{DynamicResource Loc_AutoConfigTabSelectFile}" />
+                    <Button x:Name="InsertTemplateButton" Classes="subtleBtn" Click="InsertTemplate_Click" Content="{DynamicResource Loc_AutoConfigInsertTemplateBtn}" />
+                    <Button x:Name="ClearButton" Classes="subtleBtn" Click="Clear_Click" Content="{DynamicResource Loc_AutoConfigClearBtn}" />
+                </StackPanel>
+
+                <TextBlock x:Name="LoadedFileStatus" Grid.Column="2" VerticalAlignment="Center" FontSize="11" Foreground="{DynamicResource AppAccentGreen}" TextTrimming="CharacterEllipsis" MaxWidth="220" />
+            </Grid>
+
+            <!-- Multiline Editor -->
+            <Border Grid.Row="1" Background="#18000000" BorderBrush="{DynamicResource AppDivider}" BorderThickness="1" CornerRadius="8" Padding="2">
+                <TextBox x:Name="CommandsTextBox"
+                         AcceptsReturn="True"
+                         AcceptsTab="True"
+                         FontFamily="Consolas, Cascadia Code, Courier New"
+                         FontSize="12"
+                         Foreground="{DynamicResource AppPrimaryText}"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         CaretBrush="White"
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         Watermark="{DynamicResource Loc_AutoConfigWatermark}" />
+            </Border>
+
+            <!-- Status line -->
+            <Grid Grid.Row="2" ColumnDefinitions="*,Auto">
+                <TextBlock x:Name="StatusMessageText" Grid.Column="0" VerticalAlignment="Center" FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_AutoConfigStatusActive}" />
+                <TextBlock Grid.Column="1" Text="csgo/cfg/wauncher_autoexec.cfg" FontSize="10" Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+            </Grid>
+        </Grid>
+
+        <Rectangle Grid.Row="3" Fill="{DynamicResource AppDivider}" />
+
+        <!-- Footer Actions -->
+        <Grid Grid.Row="4" Margin="24,0" ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+            <!-- Active Toggle -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <ToggleSwitch x:Name="ActiveToggleSwitch" VerticalAlignment="Center" OffContent="" OnContent="" />
+                <TextBlock Text="{DynamicResource Loc_AutoConfigActiveToggle}" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Save and Activate Button -->
+            <Button Grid.Column="2" x:Name="SaveAndActivateButton" Classes="accentBtn" Click="SaveAndActivate_Click" Content="{DynamicResource Loc_AutoConfigSaveBtn}" VerticalAlignment="Center" />
+        </Grid>
+    </Grid>
+</UserControl>

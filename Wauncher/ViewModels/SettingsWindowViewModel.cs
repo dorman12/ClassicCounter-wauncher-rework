@@ -66,6 +66,24 @@ namespace Wauncher.ViewModels
         [ObservableProperty]
         private bool _isEnglish = false;
 
+        [ObservableProperty]
+        private bool _autoConfigEnabled = true;
+
+        [ObservableProperty]
+        private string _autoConfigCommands = string.Empty;
+
+        [ObservableProperty]
+        private bool _customFontEnabled = false;
+
+        [ObservableProperty]
+        private string _customFontName = string.Empty;
+
+        [ObservableProperty]
+        private string _customFontPath = string.Empty;
+
+        public string CustomFontDisplay =>
+            Services.CustomFontService.GetCurrentFontDisplayName(CustomFontName);
+
         private bool _isLoading;
 
         public SettingsWindowViewModel()
@@ -142,6 +160,25 @@ namespace Wauncher.ViewModels
                             if (double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var mv))
                                 MusicVolume = Math.Clamp(mv, 0.0, 1.0);
                             break;
+                        case "AutoConfigEnabled":
+                            AutoConfigEnabled = value.Trim().ToLower() == "true";
+                            break;
+                        case "AutoConfigCommands":
+                            try
+                            {
+                                AutoConfigCommands = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(value.Trim()));
+                            }
+                            catch { AutoConfigCommands = value; }
+                            break;
+                        case "CustomFontEnabled":
+                            CustomFontEnabled = value.Trim().ToLower() == "true";
+                            break;
+                        case "CustomFontName":
+                            CustomFontName = value.Trim();
+                            break;
+                        case "CustomFontPath":
+                            CustomFontPath = value.Trim();
+                            break;
                     }
                 }
             }
@@ -168,6 +205,11 @@ namespace Wauncher.ViewModels
                     l.StartsWith("MusicVolume=") ||
                     l.StartsWith("NoscopeSoundName=") ||
                     l.StartsWith("Language=") ||
+                    l.StartsWith("AutoConfigEnabled=") ||
+                    l.StartsWith("AutoConfigCommands=") ||
+                    l.StartsWith("CustomFontEnabled=") ||
+                    l.StartsWith("CustomFontName=") ||
+                    l.StartsWith("CustomFontPath=") ||
                     l.StartsWith("LaunchOptions="));
 
                 lines.Add($"DiscordRpc={DiscordRpc.ToString().ToLower()}");
@@ -182,6 +224,15 @@ namespace Wauncher.ViewModels
                 lines.Add($"MusicVolume={MusicVolume.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
                 lines.Add($"NoscopeSoundName={NoscopeSoundName}");
                 lines.Add($"Language={Language}");
+                lines.Add($"AutoConfigEnabled={AutoConfigEnabled.ToString().ToLower()}");
+                if (!string.IsNullOrEmpty(AutoConfigCommands))
+                {
+                    var b64 = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(AutoConfigCommands));
+                    lines.Add($"AutoConfigCommands={b64}");
+                }
+                lines.Add($"CustomFontEnabled={CustomFontEnabled.ToString().ToLower()}");
+                lines.Add($"CustomFontName={CustomFontName}");
+                lines.Add($"CustomFontPath={CustomFontPath}");
 
                 File.WriteAllLines(path, lines);
             }

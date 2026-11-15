@@ -357,6 +357,12 @@ namespace Wauncher.ViewModels
         [ObservableProperty]
         private bool _isAppearancePanelOpen;
 
+        [ObservableProperty]
+        private bool _isAutoConfigModalOpen;
+
+        [ObservableProperty]
+        private bool _isFontModalOpen;
+
         [RelayCommand]
         private void CloseSettingsPanel() => IsSettingsPanelOpen = false;
 
@@ -365,6 +371,12 @@ namespace Wauncher.ViewModels
 
         [RelayCommand]
         private void CloseAppearancePanel() => IsAppearancePanelOpen = false;
+
+        [RelayCommand]
+        private void CloseAutoConfigModal() => IsAutoConfigModalOpen = false;
+
+        [RelayCommand]
+        private void CloseFontModal() => IsFontModalOpen = false;
 
         partial void OnIsSettingsPanelOpenChanged(bool value)
         {

@@ -9,6 +9,12 @@ namespace Wauncher.Views.Controls
     public partial class AppearancePanel : UserControl
     {
         public event Action? CloseRequested;
+        public static event Action? FontModalRequested;
+
+        private void OpenFontModal_Click(object? sender, RoutedEventArgs e)
+        {
+            FontModalRequested?.Invoke();
+        }
         private AppearanceWindowViewModel? _vm;
         private bool _isUpdatingUi = false;
 

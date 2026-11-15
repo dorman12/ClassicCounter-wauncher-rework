@@ -72,6 +72,17 @@
 - Кнопка **«Сбросить»** для мгновенного восстановления оригинального звука Quake из резервной копии.
 - Кнопка открытия папки со звуками в проводнике Windows.
 
+### ⚙️ Авто-конфиг (Exec) — Защита настроек и Viewmodel
+- **Предотвращение сброса настроек**: решает проблему слетающих команд положения рук (iewmodel_fov, iewmodel_offset), биндов и рейтов при перезапуске игры.
+- **Встроенный редактор**: выбор готового .cfg/.txt файла с ПК либо ввод команд прямо в лаунчере.
+- **Авто-активация (+exec)**: лаунчер сам генерирует wauncher_autoexec.cfg, добавляет host_writeconfig и передает +exec при запуске игры.
+
+### 🔤 Кастомизация шрифта в игре (.ttf, .otf, .swf)
+- **Смена шрифтов интерфейса**: установка любого любимого шрифта для главного меню, HUD, таблицы счёта и киллфида.
+- **Поддержка современных и классических форматов**: .ttf, .otf и Scaleform .swf.
+- **Восстановление в 1 клик**: кнопка «Сбросить на стандартный» мгновенно возвращает оригинальный шрифт игры (Stratum2).
+
+
 ---
 
 ## 🚀 Быстрый старт (для игроков)
@@ -219,6 +230,17 @@ The launcher communicates exclusively with official and open gaming endpoints:
 - **"▶ Preview"** button to listen to the sound directly inside the launcher.
 - **"Reset"** button to instantly restore the original Quake sound from backup.
 - Explorer shortcut button to open the sounds folder directly in Windows.
+
+### ⚙️ Auto-Config (Exec) — Viewmodel & Settings Protection
+- **Prevents Settings Reset**: resolves issues with hands position (iewmodel_fov, iewmodel_offset), custom binds, and network rates resetting after game relaunch.
+- **Built-in Editor**: load existing .cfg/.txt files from PC or edit commands directly in the launcher.
+- **Auto-Activation (+exec)**: generates wauncher_autoexec.cfg, ensures host_writeconfig, and passes +exec at launch.
+
+### 🔤 In-Game Custom Font (.ttf, .otf, .swf)
+- **UI & HUD Font Replacement**: customize in-game typography for menus, HUD, damage indicators, and scoreboard.
+- **Broad Format Support**: supports modern TrueType/OpenType (.ttf, .otf) as well as Scaleform .swf.
+- **1-Click Reset**: easily restore the original default game font (Stratum2) with one click.
+
 
 ---
 

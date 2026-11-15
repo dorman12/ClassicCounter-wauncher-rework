@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Wauncher.Services;
 using Wauncher.Utils;
 using Wauncher.ViewModels;
 
@@ -18,6 +19,8 @@ namespace Wauncher.Views.Controls
         private bool _isRefreshingSteamButton;
 
         public event EventHandler? CloseRequested;
+        public static event Action<SettingsWindowViewModel>? AutoConfigModalRequested;
+        public static event Action<SettingsWindowViewModel>? FontModalRequested;
 
         public SettingsPanel()
         {
@@ -69,6 +72,42 @@ namespace Wauncher.Views.Controls
             }
         }
 
+        private void ConfigureAutoConfigButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as SettingsWindowViewModel ?? SettingsWindowViewModel.LoadGlobal();
+            AutoConfigModalRequested?.Invoke(vm);
+        }
+
+        private void ConfigureFontButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as SettingsWindowViewModel ?? SettingsWindowViewModel.LoadGlobal();
+            FontModalRequested?.Invoke(vm);
+        }
+
+        private void ResetFontDirectButton_Click(object? sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CustomFontService.ResetToDefault();
+                if (DataContext is SettingsWindowViewModel vm)
+                {
+                    vm.CustomFontEnabled = false;
+                    vm.CustomFontName = string.Empty;
+                    vm.CustomFontPath = string.Empty;
+                    vm.Save();
+                }
+
+                if (this.FindControl<TextBlock>("CustomFontStatusText") is TextBlock textBlock)
+                {
+                    textBlock.Text = CustomFontService.GetCurrentFontDisplayName(string.Empty);
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleManager.ShowError($"Failed to reset font: {ex.Message}");
+            }
+        }
+
         private void UpdateNoscopeStatus()
         {
             try
@@ -95,7 +134,21 @@ namespace Wauncher.Views.Controls
             UpdateLanguageButtons();
             UpdateGameDirectoryStatus();
             UpdateNoscopeStatus();
+            UpdateFontStatus();
             await RefreshSteamButtonStateAsync();
+        }
+
+        private void UpdateFontStatus()
+        {
+            try
+            {
+                string? savedName = (DataContext as SettingsWindowViewModel)?.CustomFontName;
+                if (this.FindControl<TextBlock>("CustomFontStatusText") is TextBlock textBlock)
+                {
+                    textBlock.Text = CustomFontService.GetCurrentFontDisplayName(savedName);
+                }
+            }
+            catch { }
         }
 
         private void DisableHardwareAccelerationToggle_Changed(object? sender, RoutedEventArgs e)

@@ -1,0 +1,125 @@
+<UserControl
+    x:Class="Wauncher.Views.Controls.CustomFontModal"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="640"
+    d:DesignHeight="420"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch">
+
+    <UserControl.Styles>
+        <Style Selector="Button.actionBtn">
+            <Setter Property="Height" Value="36" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="16,0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Background" Value="#1B6EA8" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.actionBtn:pointerover">
+            <Setter Property="Background" Value="#2A8AD2" />
+        </Style>
+
+        <Style Selector="Button.dangerBtn">
+            <Setter Property="Height" Value="36" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="14,0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Background" Value="#A82020" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.dangerBtn:pointerover">
+            <Setter Property="Background" Value="#C93030" />
+        </Style>
+
+        <Style Selector="Border.fontCard">
+            <Setter Property="Background" Value="#15FFFFFF" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppDivider}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16,14" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{DynamicResource AppMainBackground}" RowDefinitions="48,1,*,1,50">
+        
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="20,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="10">
+                <Border Width="28" Height="28" CornerRadius="14" Background="{DynamicResource AppAccentGreen}" VerticalAlignment="Center">
+                    <Path Width="14" Height="14" Stretch="Uniform" Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Center"
+                          Data="M9.93 13.5h4.14L12 7.98zM20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-4.05 16.5l-1.14-3H9.17l-1.12 3H5.96l5.11-13h1.86l5.11 13h-2.09z" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource Loc_CustomFontModalTitle}" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource AppPrimaryText}" />
+                    <TextBlock Text="{DynamicResource Loc_CustomFontModalSub}" FontSize="10" Foreground="{DynamicResource AppMutedText}" />
+                </StackPanel>
+            </StackPanel>
+
+            <Button x:Name="CloseButton" HorizontalAlignment="Right" Classes="titleBtn" Width="36" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <Path Width="10" Height="10" Data="M0,0 L10,10 M10,0 L0,10" Stroke="White" StrokeThickness="1.5" />
+            </Button>
+        </Grid>
+
+        <Rectangle Grid.Row="1" Fill="{DynamicResource AppDivider}" />
+
+        <!-- Main Body -->
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="24,16" Spacing="16">
+
+                <!-- Current Font Card -->
+                <Border Classes="fontCard">
+                    <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+                        <TextBlock Grid.Row="0" Text="{DynamicResource Loc_CustomFontCurrentLabel}" FontSize="11" Foreground="{DynamicResource AppMutedText}" />
+                        
+                        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                            <TextBlock x:Name="CurrentFontNameText" Grid.Column="0" Text="{DynamicResource Loc_CustomFontDefault}" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AppPrimaryText}" VerticalAlignment="Center" />
+                            <Border x:Name="FontBadge" Grid.Column="1" Background="#25FFFFFF" CornerRadius="4" Padding="8,3" VerticalAlignment="Center">
+                                <TextBlock x:Name="FontStatusBadgeText" Text="ACTIVE" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource AppAccentGreen}" />
+                            </Border>
+                        </Grid>
+
+                        <!-- Preview text block -->
+                        <Border Grid.Row="2" Background="#14000000" CornerRadius="6" Padding="12,10" Margin="0,4,0,0">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="{DynamicResource Loc_CustomFontPreviewSample}" FontSize="12" Foreground="{DynamicResource AppPrimaryText}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                                <TextBlock Text="DAMAGE: 104 in 4 hits • MONEY: $16,000 • TICK: 128" FontSize="11" Foreground="{DynamicResource AppAccentGreen}" LetterSpacing="1" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Actions Group -->
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <Button x:Name="ChooseFontButton" Grid.Column="0" Classes="actionBtn" Click="ChooseFont_Click" HorizontalAlignment="Stretch" Content="{DynamicResource Loc_CustomFontChooseBtn}" />
+                    <Button x:Name="ResetFontButton" Grid.Column="1" Classes="dangerBtn" Click="ResetFont_Click" Content="{DynamicResource Loc_CustomFontResetBtn}" />
+                </Grid>
+
+                <!-- Status Feedback -->
+                <TextBlock x:Name="StatusMessageText" FontSize="11" Foreground="{DynamicResource AppMutedText}" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,4,0,0" />
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Rectangle Grid.Row="3" Fill="{DynamicResource AppDivider}" />
+
+        <!-- Footer -->
+        <Grid Grid.Row="4" Margin="24,0" ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+            <TextBlock Text="csgo/resource/flash/fontmapping.cfg" FontSize="10" Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+            <Button Grid.Column="1" x:Name="DoneButton" Classes="actionBtn" Click="Done_Click" Height="30" Padding="14,0" Content="OK" />
+        </Grid>
+    </Grid>
+</UserControl>

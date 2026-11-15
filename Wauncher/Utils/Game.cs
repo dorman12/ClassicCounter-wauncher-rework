@@ -50,6 +50,32 @@ namespace Wauncher.Utils
             string directory = Wauncher.Services.GamePathService.GetGameDirectory();
             Terminal.Print($"Directory: {directory}");
 
+            if (settings.AutoConfigEnabled)
+            {
+                try
+                {
+                    Wauncher.Services.AutoConfigService.SaveAndApply(settings.AutoConfigCommands, true);
+                    if (!arguments.Contains("+exec"))
+                    {
+                        arguments.Add("+exec");
+                        arguments.Add(Wauncher.Services.AutoConfigService.ConfigFileName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Terminal.Error($"[AutoConfig] Failed to apply: {ex.Message}");
+                }
+            }
+
+            if (settings.CustomFontEnabled && !string.IsNullOrWhiteSpace(settings.CustomFontPath) && File.Exists(settings.CustomFontPath))
+            {
+                try
+                {
+                    Wauncher.Services.CustomFontService.InstallFont(settings.CustomFontPath);
+                }
+                catch { }
+            }
+
             string gameStatePath = Path.Combine(directory, "csgo", "cfg", "gamestate_integration_cc.cfg");
 
             if (settings.DiscordRpc || !string.IsNullOrWhiteSpace(_pendingConnectTarget))
