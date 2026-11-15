@@ -73,7 +73,7 @@
 - Кнопка открытия папки со звуками в проводнике Windows.
 
 ### ⚙️ Авто-конфиг (Exec) — Защита настроек и Viewmodel
-- **Предотвращение сброса настроек**: решает проблему слетающих команд положения рук (iewmodel_fov, iewmodel_offset), биндов и рейтов при перезапуске игры.
+- **Предотвращение сброса настроек**: решает проблему слетающих команд положения рук (viewmodel_fov, viewmodel_offset), биндов и рейтов при перезапуске игры.
 - **Встроенный редактор**: выбор готового .cfg/.txt файла с ПК либо ввод команд прямо в лаунчере.
 - **Авто-активация (+exec)**: лаунчер сам генерирует wauncher_autoexec.cfg, добавляет host_writeconfig и передает +exec при запуске игры.
 
@@ -85,7 +85,7 @@
 
 ---
 
-## 🚀 Быстрый старт (для игроков)
+## 🚀 Быстрый старт
 
 Вам **не нужно** вручную переносить файлы или заново скачивать десятки гигабайт игры:
 
@@ -232,7 +232,7 @@ The launcher communicates exclusively with official and open gaming endpoints:
 - Explorer shortcut button to open the sounds folder directly in Windows.
 
 ### ⚙️ Auto-Config (Exec) — Viewmodel & Settings Protection
-- **Prevents Settings Reset**: resolves issues with hands position (iewmodel_fov, iewmodel_offset), custom binds, and network rates resetting after game relaunch.
+- **Prevents Settings Reset**: resolves issues with hands position (viewmodel_fov, viewmodel_offset), custom binds, and network rates resetting after game relaunch.
 - **Built-in Editor**: load existing .cfg/.txt files from PC or edit commands directly in the launcher.
 - **Auto-Activation (+exec)**: generates wauncher_autoexec.cfg, ensures host_writeconfig, and passes +exec at launch.
 
