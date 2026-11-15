@@ -220,6 +220,17 @@
 
             <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
 
+            <!-- Mute Music on Startup -->
+            <Grid ColumnDefinitions="*,Auto" MinHeight="44">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0">
+                    <TextBlock FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AppPrimaryText}" Text="{DynamicResource Loc_MuteMusicTitle}" />
+                    <TextBlock FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_MuteMusicSub}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" MaxWidth="340" />
+                </StackPanel>
+                <ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding MuteMusicOnStartup}" OffContent="" OnContent="" />
+            </Grid>
+
+            <Rectangle Height="1" Fill="{DynamicResource AppDivider}" />
+
             <!-- Trickshot Sound Selection -->
             <Grid ColumnDefinitions="*,Auto" MinHeight="46">
                 <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0">

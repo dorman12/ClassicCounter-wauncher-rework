@@ -121,14 +121,15 @@ namespace Wauncher.Views.Controls
 
             OnTrackChanged();
 
-            // Auto-play music on launcher start with smooth volume fade-in
-            if (music.HasTracks && !music.IsPlaying)
+            // Auto-play music on launcher start with smooth volume fade-in (if not muted on startup)
+            if (!settings.MuteMusicOnStartup && music.HasTracks && !music.IsPlaying)
             {
                 System.Threading.Tasks.Task.Delay(400).ContinueWith(_ =>
                 {
                     Avalonia.Threading.Dispatcher.UIThread.Post(() =>
                     {
-                        if (music.HasTracks && !music.IsPlaying)
+                        var freshSettings = ViewModels.SettingsWindowViewModel.LoadGlobal();
+                        if (!freshSettings.MuteMusicOnStartup && music.HasTracks && !music.IsPlaying)
                         {
                             music.PlayWithFadeIn(targetVol, 3.0);
                         }

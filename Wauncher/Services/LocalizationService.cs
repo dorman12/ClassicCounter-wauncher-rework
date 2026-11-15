@@ -109,6 +109,8 @@ namespace Wauncher.Services
             // Music status
             ["MusicDefaultTracks"] = "Default (Built-in 2 tracks)",
             ["MusicNoFolder"] = "Music folder not selected",
+            ["MuteMusicTitle"] = "Mute Music on Startup",
+            ["MuteMusicSub"] = "Do not play music automatically when opening the launcher until manually started",
             ["TrickshotDefaultStatus"] = "Original Quake sound",
             ["TrickshotCustomStatus"] = "Custom sound: ",
 
@@ -122,8 +124,10 @@ namespace Wauncher.Services
             ["AutoConfigTabInsertCommands"] = "✍️ Edit Commands",
             ["AutoConfigActiveToggle"] = "Enable auto-exec on launch (+exec)",
             ["AutoConfigSaveBtn"] = "Save and Activate",
-            ["AutoConfigInsertTemplateBtn"] = "Insert Viewmodel Preset",
+            ["AutoConfigInsertTemplateBtn"] = "Reset to Default Preset",
             ["AutoConfigClearBtn"] = "Clear",
+            ["AutoConfigEditableHint"] = "Text is fully editable",
+            ["AutoConfigDefaultInserted"] = "✓ Default preset restored",
             ["AutoConfigStatusActive"] = "✓ Auto-config is active (+exec wauncher_autoexec.cfg)",
             ["AutoConfigStatusDisabled"] = "Auto-config is disabled",
             ["AutoConfigSavedSuccess"] = "✓ Auto-config saved and activated!",
@@ -237,6 +241,8 @@ namespace Wauncher.Services
             // Music status
             ["MusicDefaultTracks"] = "По умолчанию (Встроенные 2 трека)",
             ["MusicNoFolder"] = "Папка с музыкой не выбрана",
+            ["MuteMusicTitle"] = "Мут музыки при запуске",
+            ["MuteMusicSub"] = "Не запускать фоновую музыку при открытии лаунчера, пока вы сами её не включите",
             ["TrickshotDefaultStatus"] = "Оригинальный звук Quake",
             ["TrickshotCustomStatus"] = "Кастомный звук: ",
 
@@ -250,8 +256,10 @@ namespace Wauncher.Services
             ["AutoConfigTabInsertCommands"] = "✍️ Редактор команд",
             ["AutoConfigActiveToggle"] = "Авто-выполнение при запуске (+exec)",
             ["AutoConfigSaveBtn"] = "Сохранить и активировать",
-            ["AutoConfigInsertTemplateBtn"] = "Вставить пресет Viewmodel",
+            ["AutoConfigInsertTemplateBtn"] = "Сбросить на стандартный",
             ["AutoConfigClearBtn"] = "Очистить",
+            ["AutoConfigEditableHint"] = "Текст можно свободно редактировать",
+            ["AutoConfigDefaultInserted"] = "✓ Восстановлен стандартный конфиг",
             ["AutoConfigStatusActive"] = "✓ Авто-конфиг активен (+exec wauncher_autoexec.cfg)",
             ["AutoConfigStatusDisabled"] = "Авто-конфиг выключен",
             ["AutoConfigSavedSuccess"] = "✓ Конфиг сохранен и успешно активирован!",

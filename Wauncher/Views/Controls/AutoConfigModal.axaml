@@ -14,7 +14,7 @@
         <Style Selector="Button.actionBtn">
             <Setter Property="Height" Value="32" />
             <Setter Property="CornerRadius" Value="6" />
-            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="Padding" Value="14,0" />
             <Setter Property="FontSize" Value="11.5" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Background" Value="#1B6EA8" />
@@ -48,7 +48,7 @@
         <Style Selector="Button.subtleBtn">
             <Setter Property="Height" Value="32" />
             <Setter Property="CornerRadius" Value="6" />
-            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="Padding" Value="12,0" />
             <Setter Property="FontSize" Value="11" />
             <Setter Property="Background" Value="#20FFFFFF" />
             <Setter Property="Foreground" Value="{DynamicResource AppPrimaryText}" />
@@ -60,6 +60,39 @@
         </Style>
         <Style Selector="Button.subtleBtn:pointerover">
             <Setter Property="Background" Value="#35FFFFFF" />
+        </Style>
+
+        <!-- Pure Dark Code Editor TextBox Styles (Never white on focus) -->
+        <Style Selector="TextBox.codeEditor">
+            <Setter Property="Background" Value="#1A070B14" />
+            <Setter Property="Foreground" Value="#EAEAEA" />
+            <Setter Property="CaretBrush" Value="White" />
+            <Setter Property="SelectionBrush" Value="{DynamicResource AppAccentGreen}" />
+            <Setter Property="SelectionForegroundBrush" Value="Black" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppDivider}" />
+            <Setter Property="Padding" Value="14,12" />
+        </Style>
+        <Style Selector="TextBox.codeEditor /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#1A070B14" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppDivider}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+        <Style Selector="TextBox.codeEditor:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#22070B14" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppDivider2}" />
+        </Style>
+        <Style Selector="TextBox.codeEditor:focus">
+            <Setter Property="Foreground" Value="#FFFFFF" />
+        </Style>
+        <Style Selector="TextBox.codeEditor:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#25070B14" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppAccentGreen}" />
+            <Setter Property="BorderThickness" Value="1.5" />
+        </Style>
+        <Style Selector="TextBox.codeEditor /template/ TextBlock#PART_Watermark">
+            <Setter Property="Foreground" Value="#66FFFFFF" />
         </Style>
     </UserControl.Styles>
 
@@ -88,37 +121,32 @@
         <!-- Main Content Area -->
         <Grid Grid.Row="2" Margin="24,14" RowDefinitions="Auto,*,Auto" RowSpacing="10">
             
-            <!-- Toolbar: Load file / Insert template / Clear -->
+            <!-- Toolbar: Reset to Default Preset / Clear -->
             <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
-                    <Button x:Name="ChooseFileButton" Classes="actionBtn" Click="ChooseFile_Click" Content="{DynamicResource Loc_AutoConfigTabSelectFile}" />
-                    <Button x:Name="InsertTemplateButton" Classes="subtleBtn" Click="InsertTemplate_Click" Content="{DynamicResource Loc_AutoConfigInsertTemplateBtn}" />
+                    <Button x:Name="InsertTemplateButton" Classes="actionBtn" Click="InsertTemplate_Click" Content="{DynamicResource Loc_AutoConfigInsertTemplateBtn}" />
                     <Button x:Name="ClearButton" Classes="subtleBtn" Click="Clear_Click" Content="{DynamicResource Loc_AutoConfigClearBtn}" />
                 </StackPanel>
 
-                <TextBlock x:Name="LoadedFileStatus" Grid.Column="2" VerticalAlignment="Center" FontSize="11" Foreground="{DynamicResource AppAccentGreen}" TextTrimming="CharacterEllipsis" MaxWidth="220" />
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="csgo/cfg/wauncher_autoexec.cfg" />
             </Grid>
 
-            <!-- Multiline Editor -->
-            <Border Grid.Row="1" Background="#18000000" BorderBrush="{DynamicResource AppDivider}" BorderThickness="1" CornerRadius="8" Padding="2">
-                <TextBox x:Name="CommandsTextBox"
-                         AcceptsReturn="True"
-                         AcceptsTab="True"
-                         FontFamily="Consolas, Cascadia Code, Courier New"
-                         FontSize="12"
-                         Foreground="{DynamicResource AppPrimaryText}"
-                         Background="Transparent"
-                         BorderThickness="0"
-                         CaretBrush="White"
-                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                         Watermark="{DynamicResource Loc_AutoConfigWatermark}" />
-            </Border>
+            <!-- Multiline Code Editor (Always Dark) -->
+            <TextBox Grid.Row="1"
+                     x:Name="CommandsTextBox"
+                     Classes="codeEditor"
+                     AcceptsReturn="True"
+                     AcceptsTab="True"
+                     FontFamily="Consolas, Cascadia Code, Courier New"
+                     FontSize="12"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     Watermark="{DynamicResource Loc_AutoConfigWatermark}" />
 
             <!-- Status line -->
             <Grid Grid.Row="2" ColumnDefinitions="*,Auto">
                 <TextBlock x:Name="StatusMessageText" Grid.Column="0" VerticalAlignment="Center" FontSize="11" Foreground="{DynamicResource AppMutedText}" Text="{DynamicResource Loc_AutoConfigStatusActive}" />
-                <TextBlock Grid.Column="1" Text="csgo/cfg/wauncher_autoexec.cfg" FontSize="10" Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="{DynamicResource Loc_AutoConfigEditableHint}" FontSize="10" Foreground="{DynamicResource AppMutedText}" VerticalAlignment="Center" />
             </Grid>
         </Grid>
 

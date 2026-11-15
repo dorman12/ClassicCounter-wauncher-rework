@@ -1,10 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Platform.Storage;
 using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using Wauncher.Services;
 using Wauncher.ViewModels;
 
@@ -40,57 +36,15 @@ namespace Wauncher.Views.Controls
                 : LocalizationService.Instance.Get("AutoConfigStatusDisabled");
         }
 
-        private async void ChooseFile_Click(object? sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var topLevel = TopLevel.GetTopLevel(this);
-                if (topLevel == null) return;
-
-                var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-                {
-                    Title = LocalizationService.Instance.Get("AutoConfigTabSelectFile"),
-                    AllowMultiple = false,
-                    FileTypeFilter = new[]
-                    {
-                        new FilePickerFileType("Config & Text Files")
-                        {
-                            Patterns = new[] { "*.cfg", "*.txt" }
-                        },
-                        new FilePickerFileType("All files")
-                        {
-                            Patterns = new[] { "*.*" }
-                        }
-                    }
-                });
-
-                if (files.Count > 0)
-                {
-                    var file = files[0];
-                    using var stream = await file.OpenReadAsync();
-                    using var reader = new StreamReader(stream, Encoding.UTF8);
-                    string text = await reader.ReadToEndAsync();
-
-                    CommandsTextBox.Text = text;
-                    LoadedFileStatus.Text = $"✓ {file.Name}";
-                }
-            }
-            catch (Exception ex)
-            {
-                StatusMessageText.Text = $"Error: {ex.Message}";
-            }
-        }
-
         private void InsertTemplate_Click(object? sender, RoutedEventArgs e)
         {
             CommandsTextBox.Text = AutoConfigService.GetDefaultCommands();
-            LoadedFileStatus.Text = string.Empty;
+            StatusMessageText.Text = LocalizationService.Instance.Get("AutoConfigDefaultInserted");
         }
 
         private void Clear_Click(object? sender, RoutedEventArgs e)
         {
             CommandsTextBox.Text = string.Empty;
-            LoadedFileStatus.Text = string.Empty;
         }
 
         private void SaveAndActivate_Click(object? sender, RoutedEventArgs e)
@@ -99,13 +53,15 @@ namespace Wauncher.Views.Controls
                 _settingsVm = SettingsWindowViewModel.LoadGlobal();
 
             bool active = ActiveToggleSwitch.IsChecked ?? true;
-            string commands = CommandsTextBox.Text ?? string.Empty;
+            string rawCommands = CommandsTextBox.Text ?? string.Empty;
+            string normalized = AutoConfigService.SanitizeAndNormalizeCommands(rawCommands);
 
             _settingsVm.AutoConfigEnabled = active;
-            _settingsVm.AutoConfigCommands = commands;
+            _settingsVm.AutoConfigCommands = normalized;
             _settingsVm.Save();
 
-            AutoConfigService.SaveAndApply(commands, active);
+            AutoConfigService.SaveAndApply(normalized, active);
+            CommandsTextBox.Text = normalized;
 
             StatusMessageText.Text = LocalizationService.Instance.Get("AutoConfigSavedSuccess");
             CloseRequested?.Invoke();

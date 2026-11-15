@@ -58,6 +58,9 @@ namespace Wauncher.ViewModels
         private double _musicVolume = 0.5;
 
         [ObservableProperty]
+        private bool _muteMusicOnStartup = false;
+
+        [ObservableProperty]
         private string _noscopeSoundName = "Quake (Default)";
 
         [ObservableProperty]
@@ -119,6 +122,7 @@ namespace Wauncher.ViewModels
         partial void OnDiscordRpcChanged(bool value)       { if (_isLoading) return; Save(); DiscordRpcChanged?.Invoke(value); }
         partial void OnCustomCarouselFolderChanged(string value) { if (_isLoading) return; Save(); CustomCarouselFolderChanged?.Invoke(string.IsNullOrWhiteSpace(value) ? null : value); }
         partial void OnMusicFolderChanged(string value) { if (_isLoading) return; Save(); OnPropertyChanged(nameof(MusicFolderDisplay)); MusicFolderChanged?.Invoke(string.IsNullOrWhiteSpace(value) ? null : value); }
+        partial void OnMuteMusicOnStartupChanged(bool value) { if (_isLoading) return; Save(); if (value) { try { Wauncher.Services.MusicPlayerService.Instance.Pause(); } catch { } } }
         partial void OnGameDirectoryChanged(string value) { if (_isLoading) return; Save(); OnPropertyChanged(nameof(GameDirectoryDisplay)); }
         partial void OnMusicVolumeChanged(double value) { if (_isLoading) return; Save(); }
         partial void OnNoscopeSoundNameChanged(string value) { if (_isLoading) return; Save(); }
@@ -159,6 +163,9 @@ namespace Wauncher.ViewModels
                         case "MusicVolume":
                             if (double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var mv))
                                 MusicVolume = Math.Clamp(mv, 0.0, 1.0);
+                            break;
+                        case "MuteMusicOnStartup":
+                            MuteMusicOnStartup = value.Trim().ToLower() == "true";
                             break;
                         case "AutoConfigEnabled":
                             AutoConfigEnabled = value.Trim().ToLower() == "true";
@@ -203,6 +210,7 @@ namespace Wauncher.ViewModels
                     l.StartsWith("GameDirectory=") ||
                     l.StartsWith("MusicFolder=") ||
                     l.StartsWith("MusicVolume=") ||
+                    l.StartsWith("MuteMusicOnStartup=") ||
                     l.StartsWith("NoscopeSoundName=") ||
                     l.StartsWith("Language=") ||
                     l.StartsWith("AutoConfigEnabled=") ||
@@ -222,6 +230,7 @@ namespace Wauncher.ViewModels
                 lines.Add($"GameDirectory={GameDirectory}");
                 lines.Add($"MusicFolder={MusicFolder}");
                 lines.Add($"MusicVolume={MusicVolume.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
+                lines.Add($"MuteMusicOnStartup={MuteMusicOnStartup.ToString().ToLower()}");
                 lines.Add($"NoscopeSoundName={NoscopeSoundName}");
                 lines.Add($"Language={Language}");
                 lines.Add($"AutoConfigEnabled={AutoConfigEnabled.ToString().ToLower()}");
