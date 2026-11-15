@@ -105,7 +105,7 @@
 
 1. **Скачайте архив** лаунчера со страницы [Releases](https://github.com/dorman12/ClassicCounter-wauncher-rework/releases) (`CC..rework.zip`).
 2. **Распакуйте** архив в любое удобное место (на Рабочий стол, в отдельную папку и т.д.).
-3. **Запустите `wauncher.exe`**: (лежит в ...ClassicCounter launcher rework\Release_Build)
+3. **Запустите `wauncher.exe`**:
    - Лаунчер автоматически попытается найти установленный ClassicCounter (`csgo.exe`).
    - Если игра не определилась автоматически или находится в нестандартной папке:
      - Откройте **«Настройки»** (иконка шестерёнки ⚙️ в меню).
@@ -265,7 +265,7 @@ The launcher communicates exclusively with official and open gaming endpoints:
 
 ---
 
-## 🚀 Quick Start (For Players)
+## 🚀 Quick Start
 
 You **do not** need to manually move files or re-download tens of gigabytes of game data:
 
