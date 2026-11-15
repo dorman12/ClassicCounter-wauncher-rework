@@ -23,6 +23,8 @@
   <img src="https://img.shields.io/badge/License-MIT-4CAF50?style=for-the-badge" alt="License" />
 </p>
 
+<img width="1168" height="704" alt="image" src="https://github.com/user-attachments/assets/e50be3d5-a4d9-4801-8105-d9b60b1cbf18" />
+
 ---
 
 ## 🛡️ Безопасность и открытость (Open Source & Clean Code)
@@ -67,6 +69,10 @@
 - **Прозрачность матового стекла (Window Glass Opacity)**.
 - **Сохранение в профили**: создание собственных пресетов оформления с быстрым переключением.
 
+<img width="1167" height="699" alt="image" src="https://github.com/user-attachments/assets/d0717d79-b994-4b4e-bb91-7011466dcef8" />
+<img width="1157" height="698" alt="image" src="https://github.com/user-attachments/assets/2b6d2f7b-0360-4b1e-80f9-38f8c0cb5e74" />
+
+
 ### 🎵 Встроенный аудиоплеер фоновой музыки
 - **Встроенные треки по умолчанию**: в дистрибутив уже включены 2 легендарных трека из *Bad Piggies* (`Bad Piggies.mp3` и `Ilmari Hakkola - Bad Piggies Theme.mp3`).
 - **Автостарт с мягким нарастанием (Fade-In)**: музыка плавно нарастает в течение 3 секунд при открытии лаунчера.
@@ -88,6 +94,7 @@
 - **Смена шрифтов интерфейса**: установка любого любимого шрифта для главного меню, HUD, таблицы счёта и киллфида.
 - **Поддержка современных и классических форматов**: .ttf, .otf и Scaleform .swf.
 - **Восстановление в 1 клик**: кнопка «Сбросить на стандартный» мгновенно возвращает оригинальный шрифт игры (Stratum2).
+<img width="1308" height="746" alt="image" src="https://github.com/user-attachments/assets/aa046536-550d-4556-aa9f-a6f9ed62930c" />
 
 
 ---
