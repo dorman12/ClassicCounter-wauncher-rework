@@ -23,10 +23,6 @@
   <img src="https://img.shields.io/badge/License-MIT-4CAF50?style=for-the-badge" alt="License" />
 </p>
 
-<p align="center">
-  <img src="docs/screenshots/main_window.png" alt="ClassicCounter Wauncher Main Interface" width="900" />
-</p>
-
 ---
 
 ## 🛡️ Безопасность и открытость (Open Source & Clean Code)
@@ -49,13 +45,6 @@
 ---
 
 ## ✨ Ключевые возможности
-
-<p align="center">
-  <img src="docs/screenshots/auto_config.jpg" width="440" alt="Auto-Config Exec" />
-  &nbsp;&nbsp;
-  <img src="docs/screenshots/theme_customizer.png" width="440" alt="Theme Customizer" />
-</p>
-
 
 ### 🌐 Мультиязычность / Bilingual Localization (English & Russian)
 - **Переключатель языка в настройках**: мгновенное переключение всего интерфейса между **Русским** и **English** в один клик без необходимости перезапуска лаунчера.
@@ -200,10 +189,6 @@ Launcher rework by **dorman666**.
   <img src="https://img.shields.io/badge/License-MIT-4CAF50?style=for-the-badge" alt="License" />
 </p>
 
-<p align="center">
-  <img src="docs/screenshots/main_window.png" alt="ClassicCounter Wauncher Main Interface" width="900" />
-</p>
-
 ---
 
 ## 🛡️ Security & Open Source (Clean Code)
@@ -226,13 +211,6 @@ The launcher communicates exclusively with official and open gaming endpoints:
 ---
 
 ## ✨ Key Features
-
-<p align="center">
-  <img src="docs/screenshots/auto_config.jpg" width="440" alt="Auto-Config Exec" />
-  &nbsp;&nbsp;
-  <img src="docs/screenshots/theme_customizer.png" width="440" alt="Theme Customizer" />
-</p>
-
 
 ### 🌐 Bilingual Localization (English & Russian)
 - **Instant language switch in Settings**: toggle between **English** and **Russian** in one click without restarting the app.
